@@ -8,13 +8,14 @@ subtitle:
 description: Laeni的博客，目前该博客仅仅是用于测试静态网页生成和自动化部署到oss以及GitHub Pages
 keywords: Laeni,博客,Laeni的博客,静态网页生成,自动化部署
 author: Laeni
-language: zh-CN
+language:
+- zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://laeni.github.io/blog/
-root: /blog/
+url: http://blog.laeni.cn
+root: /
 permalink: :year/:month/:day/:title/ # https://hexo.io/zh-cn/docs/permalinks
 permalink_defaults:
 pretty_urls:
@@ -28,7 +29,7 @@ tag_dir: tags # 标签文件夹
 archive_dir: archives # 归档文件夹
 category_dir: categories # 分类文件夹
 code_dir: downloads/code # Include code 文件夹，source_dir 下的子目录
-i18n_dir: :lang # 国际化（i18n）文件夹
+i18n_dir: :lang # 国际化（i18n）文件夹. Hexo 会捕获网址中的第一段以检测语言
 skip_render: # 跳过指定文件的渲染。匹配到的文件将会被不做改动地复制到 public 目录中。您可使用 glob(https://github.com/micromatch/micromatch#extended-globbing) 表达式来匹配路径
 
 # Writing
@@ -41,7 +42,7 @@ external_link: # 在新标签中打开链接
   exclude: '' # 需要排除的域名。主域名和子域名如 www 需分别配置
 filename_case: 0 # 把文件名称转换为 (1) 小写或 (2) 大写
 render_drafts: false # 显示草稿
-post_asset_folder: false # 启动 Asset 文件夹(https://hexo.io/zh-cn/docs/asset-folders)
+post_asset_folder: false # 启动 Asset 文件夹(https://hexo.io/zh-cn/docs/asset-folders);  对于那些想要更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上的人来说，Hexo也提供了更组织化的方式来管理资源。这个稍微有些复杂但是管理资源非常方便的功能可以通过将 config.yml 文件中的 post_asset_folder 选项设为 true 来打开。
 relative_link: false # 把链接改为与根目录的相对位址
 future: true # 显示未来的文章
 highlight: # 代码块的设置,见: https://hexo.io/docs/syntax-highlight#Highlight-js
@@ -98,12 +99,27 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape # 当前主题名称。值为false时禁用主题
+# ayer: # 大图主题(适用于展示图)
+#   安装: yarn add hexo-theme-ayer
+#   文档: https://shen-yu.gitee.io/2019/ayer/
+# pure: # 紧凑(适用于技术)
+#   安装: https://github.com/cofess/hexo-theme-pure
+#   预览: https://blog.cofess.com/
+theme: ayer # 主题名称
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: 'git'
-  repo: https://github.com/laeni/blog
-  branch: gh-pages
-  extend_dirs: /blog/
+# 通过CI/CD自动部署
+
+# 用于生成RSS订阅
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+
+top: true
