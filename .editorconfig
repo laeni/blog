@@ -1,7 +1,52 @@
+# Editor configuration, see https://editorconfig.org
+root = true
+
+# Unix-style newlines with a newline ending every file
 [*]
 charset = utf-8
 indent_style = space
 indent_size = 2
+# 控制换行符表示方式
 end_of_line = lf
+# 文件在保存时以换行符结尾
 insert_final_newline = true
+# 删除换行符之前的所有空白字符
 trim_trailing_whitespace = true
+max_line_length = 120
+tab_width = 2
+ij_continuation_indent_size = 4
+# ij_formatter_off_tag = @formatter:off
+# ij_formatter_on_tag = @formatter:on
+# ij_formatter_tags_enabled = false
+# ij_smart_tabs = false
+# ij_wrap_on_typing = false
+quote_type = single
+
+[{*.ats,*.ts}]
+# spaces_around_operators = true  # 算术和布尔运算符周围是否应该存在空格
+# spaces_around_brackets = both # 表示括号和括号之间应有空格：none-无空格 inside-仅在括号内 outside-仅在括号外 both-在括号的两侧
+# max_line_length = 140
+# 对齐多行
+ij_typescript_align_multiline_for = true
+# 对齐多行参数
+ij_typescript_align_multiline_parameters = true
+# 左括号后的数组在新行初始化
+ij_typescript_array_initializer_new_line_after_left_brace = false
+# 将简单的块放到一行中
+ij_typescript_keep_simple_blocks_in_one_line = true
+# 将简单的方法放到一行中
+ij_typescript_keep_simple_methods_in_one_line = true
+ij_typescript_space_after_dots_in_rest_parameter = true
+# 导入时插入空格
+ij_typescript_spaces_within_imports = true
+# 插值表达式插入空格
+ij_typescript_spaces_within_interpolation_expressions = true
+# ij_typescript_spaces_within_method_call_parentheses = true
+# 方法括号内插入空格
+# ij_typescript_spaces_within_method_parentheses = false
+# 对象括号内插入空格
+ij_typescript_spaces_within_object_literal_braces = true
+ij_typescript_spaces_within_object_type_braces = true
+
+[*.md]
+trim_trailing_whitespace = false
