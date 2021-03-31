@@ -199,8 +199,8 @@ friends_link:
 # 启用Valine必须先创建leancloud应用， 注册账号后获取 id|key 填入即可
 leancloud:
   enable: true
-  app_id: #
-  app_key: #
+  app_id: bRWDayks4wOG2xrCVH8yAcPF-gzGzoHsz
+  app_key: GMBSVW3f8GmtnEWARhTlFSdK
 # Valine配置(如果有些文章你想关闭评论，请在文章对应的md文件里设置no_valine:true)
 valine:
   enable: true # 是否启用
