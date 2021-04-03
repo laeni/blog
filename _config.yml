@@ -1,22 +1,23 @@
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
+## 注意：由于构建后部署到oss需要用到阿里云的密匙，所以目前ci/cd构建时会使用包含密匙的文件全量替换掉本文件
 
 # Site
-title: Laeni
-subtitle:
+title: Laeni的博客
+subtitle: Laeni的个人博客
 description: Laeni的博客，目前该博客仅仅是用于测试静态网页生成和自动化部署到oss以及GitHub Pages
 keywords: Laeni,博客,Laeni的博客,静态网页生成,自动化部署
 author: Laeni
 language:
-- zh-CN
+  - zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
 url: http://blog.laeni.cn
 root: /
-permalink: :year/:month/:day/:title/ # https://hexo.io/zh-cn/docs/permalinks
+permalink: :title/ # https://hexo.io/zh-cn/docs/permalinks
 permalink_defaults:
 pretty_urls:
   trailing_index: false # Set to false to remove trailing 'index.html' from permalinks
