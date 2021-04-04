@@ -1,13 +1,13 @@
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
-## 注意：由于构建后部署到oss需要用到阿里云的密匙，所以目前ci/cd构建时会使用包含密匙的文件全量替换掉本文件
+## 注意：由于构建后部署到oss需要用到阿里云的密匙，所以ci/cd在部署时会进行替换操作
 
 # Site
 title: Laeni的博客
 subtitle: Laeni的个人博客
-description: Laeni的博客，目前该博客仅仅是用于测试静态网页生成和自动化部署到oss以及GitHub Pages
-keywords: Laeni,博客,Laeni的博客,静态网页生成,自动化部署
+description: 个人博客，通常博客会记录一些计算机技术相关行文章或是其他生活随笔，并通过ci/cd自动化部署到阿里云oss
+keywords: Laeni,博客,Laeni的博客,静态网页生成,自动化部署,生活随笔
 author: Laeni
 language:
   - zh-CN
@@ -110,7 +110,16 @@ theme: ayer # 主题名称
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-# 通过CI/CD自动部署
+deploy:
+  # https://github.com/lxl80/hexo-deployer-cos-cdn
+  - type: cos-cdn
+    cloud: aliyun
+    bucket: h5-blog
+    region: ${deploy.oss.region}
+    secretId: ${deploy.oss.secretId}
+    secretKey: ${deploy.oss.secretKey}
+    cdnEnable: false # 是否启用CDN加速，默认为 true，如果为 false ，将不会刷新 CDN 缓存
+    deleteExtraFiles: true # 是否删除云端多余文件(本地不包含的文件)，默认为 false，请谨慎选择
 
 # 用于生成RSS订阅
 feed:

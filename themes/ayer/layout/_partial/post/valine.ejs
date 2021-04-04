@@ -1,19 +1,26 @@
-<% if (!index && theme.leancloud && theme.leancloud.enable && post.comments){ %>
+<%#
+ 评论实现.
+
+ 局部变量:
+  isIndex: 是否是首页,首页页直接嵌入归档,但是首页的显示方式与独立的归档页显示方式不同
+%>
+
+<% if (!isIndex && theme.leancloud && theme.leancloud.enable && page.comments){ %>
 <!-- valine评论 -->
 <div id="vcomments-box">
   <div id="vcomments"></div>
 </div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<%- js('js/Valine.min') %>
 <script>
   new Valine({
     el: "#vcomments",
     serverURLs: "https://api.leancloud.laeni.cn",
-    app_id: "<%- theme.leancloud.app_id %>",
-    app_key: "<%- theme.leancloud.app_key %>",
-    path: window.location.pathname,
+    appId: "<%- theme.leancloud.app_id %>",
+    appKey: "<%- theme.leancloud.app_key %>",
+    path: "<%- theme.valine.baseUrl + url_for(page.path) %>",  // 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表
     avatar: "<%- theme.valine.avatar %>",
     placeholder: "<%- theme.valine.placeholder %>",
+    meta: ['nick', 'mail'],                                    // 评论者相关属性
     recordIP: true,
     enableQQ: true,
   });
@@ -31,7 +38,7 @@
 
   @media screen and (max-width: 800px) {
     #vcomments-box {
-      padding: 5px 0px;
+      padding: 5px 0;
     }
   }
 

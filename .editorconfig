@@ -22,6 +22,11 @@ ij_continuation_indent_size = 4
 # ij_wrap_on_typing = false
 quote_type = single
 
+[*.ejs]
+indent_size = 2
+tab_width = 2
+ij_continuation_indent_size = 4
+
 [{*.ats,*.ts}]
 # spaces_around_operators = true  # 算术和布尔运算符周围是否应该存在空格
 # spaces_around_brackets = both # 表示括号和括号之间应有空格：none-无空格 inside-仅在括号内 outside-仅在括号外 both-在括号的两侧

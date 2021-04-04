@@ -1,9 +1,9 @@
-<% if (post.photos && post.photos.length){ %>
+<% if (page.photos && page.photos.length){ %>
   <div class="article-gallery">
     <div class="article-gallery-photos">
-      <% post.photos.forEach(function(photo, i){ %>
+      <% page.photos.forEach(function(photo, i){ %>
         <% if (index){ %>
-          <a class="article-gallery-img" href="<%- url_for(post.path) %>" rel="gallery_<%= post._id %>">
+          <a class="article-gallery-img" href="<%- url_for(page.path) %>" rel="gallery_<%= page._id %>">
             <img src="<%- url_for(photo) %>" itemprop="image">
           </a>
         <% } else { %>

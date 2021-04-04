@@ -8,12 +8,8 @@
 
 .archive-year-wrap
   position absolute
-  top 0
   left 0
-  width years-width
   .archive-year
-    position relative
-    display inline-block
     @extend $block-caption
     &::after
       content ''
@@ -27,7 +23,7 @@
 .archives
   margin-left years-width
   border-left border-width border-color dashed
-  padding-left 3rem
+  padding-left 29.5px
   clearfix()
 
 .archive-article
@@ -60,7 +56,6 @@
     position absolute
     top 50%
     left -3.5rem
-    margin-top -.5rem
     rounded-circle(1rem)
     background-color border-color
 

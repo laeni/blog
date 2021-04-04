@@ -1,8 +1,22 @@
+<%#
+局部变量:
+post: object - 文章对象
+year: string - 年份,为空时不显示
+%>
+
 <article class="archive-article archive-type-<%= post.layout %>">
   <div class="archive-article-inner">
     <header class="archive-article-header">
-      <%- partial('post/date', {class_name: 'archive-article-date', date_format: 'MM/DD'}) %>
+      <span class="archive-article-date">
+        <time datetime="<%= date_xml(post.date) %>" itemprop="datePublished"><%= date(post.date, 'MM/DD') %></time>
+      </span>
       <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+      <%# 年份导航 %>
+      <% if (year) { %>
+        <div class="archive-year-wrap">
+          <a href="<%- url_for(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
+        </div>
+      <% } %>
     </header>
     <% if(page.category){ %>
       <%- partial('post/category') %>

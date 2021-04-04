@@ -2,19 +2,17 @@
 menu:
   主页: /
   归档: /archives
-  分类: /categories
-  标签: /tags
-  摄影: http://shenyu-vip.lofter.com
-  旅行: /tags/旅行/
-  关于我: /2019/about
+#  分类: /categories
+#  标签: /tags
+#  摄影: http://shenyu-vip.lofter.com
+#  旅行: /tags/旅行/
+#  关于我: /2019/about
 
-# 站点次标题和打字动效
-# https://github.com/mattboldt/typed.js
+# 站点次标题和打字动效(这里自动使用一言api生成随笔或名言名句进行轮播)
+# 动效 https://github.com/mattboldt/typed.js
 subtitle:
   enable: true  # 是否开启动效
-  text: 面朝大海，春暖花开  # 显示的文字
-  text2: 愿你一生努力，一生被爱   # 滚动播放，如果不需要可以留空
-  text3: 想要的都拥有，得不到的都释怀  # 最多支持三段文字
+  length: 2  # 生成的名言名句的数量
   startDelay: 0   # 延迟时间
   typeSpeed: 200  # 打字速度
   loop: true  # 是否循环
@@ -23,21 +21,21 @@ subtitle:
 
 # 网站图标和侧边栏logo
 favicon: /favicon.ico
-logo: /images/ayer-side.svg
+logo: /images/logo.svg
 
 # 封面配置
 # enable-是否启用封面；path-封面背景图；logo-封面logo
 cover:
   enable: true
-  path: /images/cover1.jpg  # /source/images目录下附送多张精美壁纸，可任意更换
-  logo: /images/ayer.svg  # 如果不要直接设置成false
+  path: /images/cover6.jpg  # /source/images目录下附送多张精美壁纸，可任意更换
+  logo: false  # 如果不要直接设置成false
 
 # 页面顶部进度条
 progressBar: true
 
 # 告示板模块
 broadcast:
-  enable: true # true开启，false关闭
+  enable: false # true开启，false关闭
   type: 1 # 1：自定义输入，2：一言api(https://v1.hitokoto.cn),每次请求会出现不同的内容,一般是随笔或名言名句
   text: '公告: 本博客还未正式建设,仅仅是测试!' # type为1时有效
 
@@ -73,16 +71,16 @@ image_viewer: true
 # 是否开启字数统计(关闭请设置enable为false)
 # 也可以单独在md文件里Front-matter设置`no_word_count: true`属性，来自定义关闭字数统计
 word_count:
-  enable: false
+  enable: true
   # 只在文章详情显示(不在首页显示)
   only_article_visit: true
 
 # 打赏
 # 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-默认开启所有文章均有打赏，如果有些文章你不需要，请在文章对应的md文件里设置no_reward:true
-reward_type: 0
+reward_type: 1
 # 打赏wording
-reward_wording: '请我喝杯咖啡吧~'
-# 支付宝二维码图片地址，跟你设置logo的方式一样。比如：/images/alipay.jpg
+reward_wording: '如果觉得不错就打赏支持我吧~'
+# 支付宝二维码图片地址
 alipay: /images/alipay.jpg
 # 微信二维码图片地址
 weixin: /images/wechat.jpg
@@ -110,7 +108,7 @@ mouse:
   path: /images/mouse.cur
 
 # 鼠标点击效果：0-关闭，1-爱心，2-爆炸烟花，3-粒子烟花
-click_effect: 0
+click_effect: 2
 
 # 页面宽度自定义（不建议修改，可能造成布局混乱），article_width文章宽度，sidebar_width侧边栏宽度
 layout:
@@ -120,7 +118,7 @@ layout:
 # GitHub Ribbons-封面右上角的forkme，换样式直接在source/images目录下替换forkme图片
 github:
   # (关闭请设置为false)
-  enable: true
+  enable: false
   url: https://github.com/laeni/blog
 
 # 网易云音乐插件
@@ -133,14 +131,14 @@ music:
 
 # 访问量统计(不蒜子)
 busuanzi:
-  enable: true
+  enable: false
 
 # 友盟cnzz统计(url填js代码src链接)
 cnzz:
   enable: false
   url: #
 
-# Google Analytics
+# Google统计
 google_analytics: ''
 # 百度统计
 baidu_analytics: 11decb23f4dc43101c4c8333530ab620
@@ -179,7 +177,7 @@ friends_link:
     #网站地址
     url: https://github.com/Shen-Yu/hexo-theme-ayer
     #网站图片(可忽略不写)
-    img: /images/ayer.png
+    img: /images/logo.svg
   GitHub:
     url: https://github.com/Shen-Yu
     img: https://i.loli.net/2020/09/07/indb4PRYDA98EkN.png
@@ -205,7 +203,8 @@ leancloud:
 valine:
   enable: true # 是否启用
   avatar: monsterid # 头像样式(https://valine.js.org/avatar.html)
-  placeholder: 给我的文章加点评论吧~ # placeholder
+  placeholder: 友善发言，温暖评论区~ # placeholder
+  baseUrl: 'blog.laeni.cn'  # 用于与文章路径进行拼接的部分,建议不要加上协议,否则会导致http和https下不一致
 
 # 2、Gitalk(https://github.com/gitalk/gitalk)
 gitalk:

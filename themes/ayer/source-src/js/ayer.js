@@ -132,7 +132,7 @@
   })
 
   // DarkMode
-  if (sessionStorage.getItem('darkmode') === 1) {
+  if (localStorage.getItem('darkmode')) {
     $('body').addClass('darkmode')
     $('#todark i').removeClass('ri-moon-line').addClass('ri-sun-line')
   } else {
@@ -140,14 +140,14 @@
     $('#todark i').removeClass('ri-sun-line').addClass('ri-moon-line')
   }
   $('#todark').click(() => {
-    if (sessionStorage.getItem('darkmode') === 1) {
+    if (localStorage.getItem('darkmode')) {
       $('body').removeClass('darkmode')
       $('#todark i').removeClass('ri-sun-line').addClass('ri-moon-line')
-      sessionStorage.removeItem('darkmode')
+      localStorage.removeItem('darkmode')
     } else {
       $('body').addClass('darkmode')
       $('#todark i').removeClass('ri-moon-line').addClass('ri-sun-line')
-      sessionStorage.setItem('darkmode', 1)
+      localStorage.setItem('darkmode', 'true')
     }
   })
 })(jQuery);

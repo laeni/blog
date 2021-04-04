@@ -1,46 +1,51 @@
-<%- partial('_partial/head') %>
+<%#
+    公共布局页
+%>
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<%# 公共头 %>
+<%- partial('_partial/head', {}, {cache: true}) %>
 <body>
-  <div id="app">
-    <% if (theme.click_effect===2){ %>
-      <canvas class="fireworks"></canvas>
-      <style>
-        .fireworks {
-          position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 99999;
-          pointer-events: none;
-        }
-      </style>
-      <% } %>
-      <% if (theme.click_effect===3){ %>
-      <canvas width="1777" height="841"
-        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
-      <% } %>
-    <main class="content on">
-      <%- body %>
-      <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
-      <div class="float_btns">
-        <%- partial('_partial/totop') %>
-      </div>
+<div id="app">
+    <%/*region 鼠标点击效果*/%>
+    <% if (theme.click_effect === 2){ %>
+        <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 99999;pointer-events: none;"></canvas>
+    <% } %>
+    <% if (theme.click_effect === 3){ %>
+        <canvas width="1777" height="841" style="position: fixed; left: 0; top: 0; z-index: 99999; pointer-events: none;"></canvas>
+    <% } %>
+    <%/*endregion*/%>
+
+    <main class="content anim">
+        <%# 类似单页应用的路由出口 %>
+        <%- body %>
+        <%# 公共脚 %>
+        <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
+        <%# 悬浮按钮 %>
+        <div class="float_btns">
+            <%- partial('_partial/totop') %>
+        </div>
     </main>
-    <aside class="sidebar on">
-      <%- partial('_partial/sidebar') %>
+
+    <%# 侧边栏 %>
+    <aside class="sidebar anim">
+        <%- partial('_partial/sidebar') %>
     </aside>
     <script>
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        document.querySelector('.content').classList.remove('on');
-        document.querySelector('.sidebar').classList.remove('on');
-      }
+        if (window.matchMedia("(max-width: 768px)").matches) {
+            document.querySelector('.content').classList.remove('on');
+            document.querySelector('.sidebar').classList.remove('on');
+        }
     </script>
+
     <%- partial('_partial/modal') %>
     <%- partial('_partial/after-footer') %>
 
-    <% if (theme.music&&theme.music.enable){ %>
-    <%- partial('_partial/music') %>
+    <% if (theme.music && theme.music.enable){ %>
+        <%- partial('_partial/music') %>
     <% } %>
-  </div>
+</div>
 </body>
 
 </html>

@@ -1,21 +1,11 @@
-# 侧边栏菜单
-menu:
-  主页: /
-  归档: /archives
-  分类: /categories
-  标签: /tags
-  旅行: /tags/旅行/
-  摄影: http://shenyu-vip.lofter.com
-  友链: /friends
-  关于我: /2019/about
+# 侧边栏菜单,可以是多个"title: link"形式的菜单链接
+menu: {}
 
-# 站点次标题和打字动效
-# https://github.com/mattboldt/typed.js
+# 站点次标题和打字动效(这里自动使用一言api生成随笔或名言名句进行轮播)
+# 动效 https://github.com/mattboldt/typed.js
 subtitle:
-  enable: true # 是否开启动效
-  text: 面朝大海，春暖花开 # 显示的文字
-  text2: 愿你一生努力，一生被爱 # 滚动播放，如果不需要可以留空
-  text3: 想要的都拥有，得不到的都释怀 # 最多支持三段文字
+  enable: true  # 是否开启动效
+  length: 2  # 生成的名言名句的数量
   startDelay: 0 # 延迟时间
   typeSpeed: 200 # 打字速度
   loop: true # 是否循环
@@ -31,7 +21,7 @@ logo: /images/ayer-side.svg
 cover:
   enable: true
   path: /images/cover1.jpg # /source/images目录下附送多张美图，可更换
-  logo: false #/images/ayer.svg，如果不要直接设置成false
+  logo: /images/logo.svg # 如果不要直接设置成false
 
 # 页面顶部进度条
 progressBar: true
@@ -142,7 +132,7 @@ cnzz:
   enable: true
   url: https://s9.cnzz.com/z_stat.php?id=1278069914&web_id=1278069914
 
-# Google Analytics
+# Google统计
 google_analytics: ""
 # 百度统计
 baidu_analytics: ""
@@ -181,7 +171,7 @@ friends_link:
     #网站地址
     url: https://github.com/Shen-Yu/hexo-theme-ayer
     #网站图片(可忽略不写)
-    img: /images/ayer.png
+    img: /images/logo.svg
   GitHub:
     url: https://github.com/Shen-Yu
     img: https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/github.png
@@ -200,7 +190,7 @@ friends_link:
 # 1、Valine[一款快速、简洁且高效的无后端评论系统](https://github.com/xCss/Valine)
 # 启用Valine必须先创建leancloud应用， 获取 id|key 填入即可
 leancloud:
-  enable: true
+  enable: false
   app_id: #
   app_key: #
 # Valine配置
@@ -208,6 +198,7 @@ valine:
   enable: true # 是否启用
   avatar: monsterid # 头像样式(https://valine.js.org/avatar.html)
   placeholder: 给我的文章加点评论吧~ # placeholder
+  baseUrl: 'blog.laeni.cn'  # 用于与文章路径进行拼接的部分,建议不要加上协议,否则会导致http和https下不一致
 
 # 2、Gitalk(https://github.com/gitalk/gitalk)
 gitalk:

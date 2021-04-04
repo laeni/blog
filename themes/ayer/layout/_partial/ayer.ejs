@@ -1,17 +1,21 @@
+<%#
+ 首页第一页大图.
+%>
 <% if (theme.cover.enable) { %>
     <section class="cover">
+        <%# GitHub 项目地址 %>
         <% if (theme.github.enable && theme.github.url){ %>
-        <%# "GitHub Ribbons" %>
-        <a class="forkMe" href="<%= theme.github.url %>"
-           target="_blank"><img width="149" height="149" src="<%- url_for('images/forkme.png') %>"
-                                class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+        <a class="forkMe" href="<%= theme.github.url %>" target="_blank">
+            <img width="149" height="149" src="<%- url_for('images/forkme.png') %>" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+        </a>
         <% } %>
+
         <div class="cover-frame">
             <div class="bg-box">
                 <img src="<%- theme.cover.path %>" alt="image frame"/>
             </div>
             <div class="cover-inner text-center text-white">
-                <h1><a href="<%- url_for() %>"><%= config.title %></a></h1>
+                <h1><%= config.title %></h1>
                 <div id="subtitle-box">
                     <% if (theme.subtitle.enable) { %>
                         <span id="subtitle"></span>
@@ -44,17 +48,16 @@
     </section>
 <% } %>
 
+<%# Subtitle(二级标题),这里使用一言api随机生成名言名句 %>
 <% if (theme.subtitle.enable){ %>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+    <%- js('/js/typed-2.0.11.min') %>
 <% } %>
-
-<!-- Subtitle -->
 <% if (theme.subtitle.enable){ %>
     <script>
         (async () => {
             try {
                 const strArr = [];
-                const length = 2
+                const length = <%= theme.subtitle.length %>;
                 for (let i = 0; i < length; i++) {
                     fetch('https://v1.hitokoto.cn').then(response => response.json()).then(data => {
                         strArr.push(data.hitokoto);
