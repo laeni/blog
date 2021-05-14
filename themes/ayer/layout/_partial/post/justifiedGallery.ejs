@@ -1,9 +1,0 @@
-<% if (page.albums && page.albums.length){ %>
-<div class="justified-gallery" id="gallery">
-  <% page.albums.forEach(function(photo){ %>
-  <div>
-    <img src="<%- url_for(photo[0]) %>" itemprop="image" alt="<%- photo[1] %>" style="cursor: pointer;">
-  </div>
-  <% }) %>
-</div>
-<% } %>

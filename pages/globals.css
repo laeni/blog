@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    display: inline;
+}
+
+.global-scrollblock {
+    position: fixed;
+    width: 100%;
+    overflow-y: hidden;
+}

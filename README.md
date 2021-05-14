@@ -2,4 +2,4 @@
 
 Hemo: http://blog.laeni.cn
 
-GitHub Pages: https://github.com/laeni/blog
+采用hextjs搭建
