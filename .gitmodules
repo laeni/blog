@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = git@codeup.aliyun.com:5f03f01799f4b36b1784638c/laeni/blog-content.git
