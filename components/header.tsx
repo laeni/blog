@@ -88,7 +88,7 @@ export default withRouter(class Header extends React.Component<Props, State> {
                                 <ol>
                                     {menus.map((menu, i, array) => (
                                         <Link key={menu.name} href={menu.path}>
-                                            <li key={menu.path} className={`px-5 py-3 ${i+1 !== array.length ? 'border-b border-gray-600' : ''}`}>
+                                            <li key={menu.path} className={`px-5 py-3 ${i+1 !== array.length ? 'border-b border-gray-600' : ''} ${router.asPath.startsWith(menu.path) ? styles.select : ''}`}>
                                                 {menu.name}
                                             </li>
                                         </Link>
