@@ -1,15 +1,50 @@
-.article {
-    p {
-        // 文章的段落要取消格式化或者显示设置边距
-        @apply my-2 mx-0;
-        // 缩进2字符
-        // text-indent: 1em;
-    }
-}
-
 .content {
-    @apply p-4 text-sm text-gray-600;
-    h1, h2, h3, h4, h5, h6 {
-        font-size: revert;
-    }
+  @apply px-3 pb-3 text-gray-600;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: rgb(64, 128, 255);
+    letter-spacing: 2px;
+    text-align: left;
+    text-indent: 0;
+  }
+
+  h1 {
+    margin: 15px 0 10px 0;
+    line-height: 2em;
+    font-size: 24px;
+  }
+
+  h2 {
+    margin: 10px 0 10px 0;
+    line-height: 2em;
+    font-size: 22px;
+  }
+
+  h3 {
+    margin: 10px 0 5px 0;
+    line-height: 2em;
+    font-size: 20px;
+  }
+
+  h4 {
+    margin: 10px 0 5px 0;
+    line-height: 2em;
+    font-size: 17px;
+  }
+
+  h5, h6 {
+    margin: 10px 0 5px 0;
+    line-height: 1.5em;
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 16px;
+    text-align: left;
+    text-indent: 0;
+    margin: 5px 0;
+    line-height: 2em;
+    letter-spacing: 2px;
+  }
+
 }

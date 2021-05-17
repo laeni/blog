@@ -7,7 +7,7 @@ echo "VERCEL_GIT_COMMIT_REF: $VERCEL_GIT_COMMIT_REF"
 
 PWD=$(pwd)
 # 内容远程存储库地址
-REMOTE_GIT=file:///home/laeni/Documents/Objects/cn.laeni/blog-content
+REMOTE_GIT=git@codeup.aliyun.com:5f03f01799f4b36b1784638c/laeni/blog-content.git
 # 本地博客内容存放目录
 CONTENT_DIR=./content
 DEPTH=2

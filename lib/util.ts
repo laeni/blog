@@ -1,8 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
-import html from 'remark-html'
 import {ParsedUrlQuery} from "querystring";
 import RSS from 'rss'
 import {rootTitle} from "../pages/_document";
@@ -57,9 +55,9 @@ export interface PostsMatter extends Matter {
  */
 export interface PostsContent extends PostsMatter {
     /**
-     * 文章内容。
+     * 文章内容(markdown)。
      */
-    contentHtml: string
+    content: string
 }
 
 // 博客内容目录
@@ -95,7 +93,7 @@ export function getSortedPostsData(): PostsMatter[] {
 /**
  * 获取所有文章的路径.
  */
-export function getAllPostIds(): Array<string | { params: ParsedUrlQuery; locale?: string }> {
+export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; locale?: string }> {
     const fileNames = readdirSync(contentDir)
     return fileNames.map(fileName => {
         return {
@@ -119,14 +117,8 @@ export async function getPostData(pt: string | string[]): Promise<PostsContent> 
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents)
 
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-        .use(html)
-        .process(matterResult.content)
-    const contentHtml = processedContent.toString()
-
     // Combine the data with the pt and contentHtml
-    return { pt, contentHtml, ...(matterResult.data as Matter) }
+    return { pt, content: matterResult.content, ...(matterResult.data as Matter) }
 }
 
 /**

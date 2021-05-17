@@ -24,21 +24,17 @@ const Layout: React.FunctionComponent<Props> = function({ children, carousel }) 
                 <div className="md:container mx-auto">
                     {/* 可选的轮播区域 */}
                     {carousel && (
-                        <div className="p-0 sm:px-3 sm:pt-4">{carousel}</div>
+                        <div className="m-0 sm:px-3 sm:pt-3">{carousel}</div>
                     )}
 
-                    <div className="flex justify-between p-0 sm:px-3 sm:py-4">
+                    <div className="flex justify-between p-0 sm:p-3 text-gray-800">
                         {/*左边: 主内容区*/}
                         <div className="flex-grow">
-                            <div className="bg-white text-gray-800 rounded-sm overflow-hidden">
-                                {children}
-                            </div>
+                            {children}
                         </div>
                         {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
                         <div className="flex-shrink-0 sm:w-64 md:w-72 lg:w-80 xl:w-96 hidden sm:block pl-2">
-                            <div className="bg-white text-gray-800 h-full p-4 rounded-sm overflow-hidden">
-                                {widget}
-                            </div>
+                            {widget}
                         </div>
                     </div>
                 </div>

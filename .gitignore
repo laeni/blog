@@ -38,5 +38,6 @@ yarn-error.log*
 package-lock.json
 
 # 博客内容,该内容为单独的项目,构建时拉取
+content/
 /public/feed.xml
 *.local.*
