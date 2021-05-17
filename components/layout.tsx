@@ -29,7 +29,7 @@ const Layout: React.FunctionComponent<Props> = function({ children, carousel }) 
 
                     <div className="flex justify-between p-0 sm:p-3 text-gray-800">
                         {/*左边: 主内容区*/}
-                        <div className="flex-grow">
+                        <div className="flex-grow w-0">
                             {children}
                         </div>
                         {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
