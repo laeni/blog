@@ -65,17 +65,21 @@ const components: Components = {
   code({node, inline, className, children, ...props}) {
     const match = /language-(\w+)/.exec(className || '')
 
-    if (!inline && match) {return (
-        <SyntaxHighlighter
-            language={match[1]}
-            style={theme}
-            children={String(children).replace(/\n$/, '')}
-            {...props}
-        />
-    )
+    if (!inline) {
+      return (
+          <SyntaxHighlighter
+              language={match?.length > 0 ? match[1] : ''}
+              style={theme}
+              children={String(children).replace(/\n$/, '')}
+              {...props}
+          />
+      )
     } else {
-      return <code className={className} {...props} />;
+      return (
+          <code className="bg-gray-200 rounded-sm px-1">{children}</code>
+      )
     }
+
   }
 }
 
