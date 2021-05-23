@@ -82,7 +82,7 @@ const components: Components = {
 export default function Post({ postData }: { postData: PostsContent }) {
   return <Layout>
     <Head>
-      <title>{postData.title} - {rootTitle}</title>
+      <title>{postData.title} | {rootTitle}</title>
     </Head>
     <article>
       <div className="p-2 grid">

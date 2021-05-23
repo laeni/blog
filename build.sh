@@ -25,9 +25,6 @@ function pull() {
   git reset --hard origin/master
   cd "$PWD"
 }
-function uploadToOss() {
-  # TODO
-}
 
 # 拉取或克隆博客内容
 function get_blog_content() {
@@ -41,17 +38,6 @@ function get_blog_content() {
   fi
 }
 get_blog_content
-
-# 构建
-function build() {
-  # 构建
-  npm run build
-  # 导出为静态文件
-  npm run export
-  # 将静态文件上传到oss
-  uploadToOss
-}
-#build
 
 if [[ "$VERCEL_GIT_COMMIT_REF" == "staging" || "$VERCEL_GIT_COMMIT_REF" == "master"  ]] ; then
   # Proceed with the build

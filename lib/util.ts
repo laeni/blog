@@ -50,6 +50,10 @@ export interface PostsMatter extends Matter {
     pt: string | string[]
 }
 
+export interface IndexData extends PostsMatter {
+    content: string;
+}
+
 /**
  * 完整的文章内容。
  */
@@ -63,10 +67,11 @@ export interface PostsContent extends PostsMatter {
 // 博客内容目录
 const contentDir = path.join(process.cwd(), 'content')
 
-export function getSortedPostsData(): PostsMatter[] {
+export function getSortedPostsData(): IndexData[] {
+    // 读取文章路径下的所有文章路径(默认不包含README.md)
     const fileNames = readdirSync(contentDir)
 
-    const allPostsData: PostsMatter[] = fileNames.map(fileName => {
+    const allPostsData: IndexData[] = fileNames.map(fileName => {
         // Remove ".md" from file name to get pt
         const pt = fileName.replace(/\.md$/, '')
 
@@ -77,17 +82,29 @@ export function getSortedPostsData(): PostsMatter[] {
         const matterResult = matter(fileContents)
 
         // Combine the data with the pt
-        return { pt, ...(matterResult.data as Matter) }
+        return { pt, ...(matterResult.data as Matter), content: matterResult.content }
     })
 
-    // 根据创建时间排序
-    return allPostsData.sort((a, b) => {
-        if (a.date < b.date) {
-            return 1
-        } else {
-            return -1
+    // 如果 description 为空,则尝试获取第一段作为 description
+    allPostsData.forEach(value => {
+        const {description, content} = value;
+
+        if (!description && content) {
+            for (const row of content.split(/\n/)) {
+                if (row?.trim()) {
+                    if (!row.startsWith('#') && row.search(/[*-]{2,}/)) {
+                        value.description = row.trim();
+                    }
+                    break;
+                }
+            }
         }
     })
+    return allPostsData
+        // 对于首页,只展示有 description 的文章
+        .filter(({description}) => description)
+        // 根据创建时间排序
+        .sort((a, b) => a.date < b.date ? 1 : -1);
 }
 
 /**

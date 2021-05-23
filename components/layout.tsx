@@ -1,6 +1,6 @@
 import Header from './header'
 import Footer from "./footer";
-import React, {ReactElement} from "react";
+import React, {PropsWithChildren, ReactElement} from "react";
 
 interface Props {
     // 轮播
@@ -15,7 +15,7 @@ const widget = (
     </div>
 )
 
-const Layout: React.FunctionComponent<Props> = function({ children, carousel }) {
+export default function Layout({ children, carousel } : PropsWithChildren<Props>) {
 
     return (
         <>
@@ -27,7 +27,7 @@ const Layout: React.FunctionComponent<Props> = function({ children, carousel }) 
                         <div className="m-0 sm:px-3 sm:pt-3">{carousel}</div>
                     )}
 
-                    <div className="flex justify-between p-0 sm:p-3 text-gray-800">
+                    <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800">
                         {/*左边: 主内容区*/}
                         <div className="flex-grow w-0">
                             {children}
@@ -43,4 +43,3 @@ const Layout: React.FunctionComponent<Props> = function({ children, carousel }) 
         </>
     )
 }
-export default Layout

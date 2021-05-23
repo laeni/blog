@@ -1,5 +1,5 @@
 .content {
-  @apply px-3 pb-3 text-gray-600;
+  @apply px-3 pb-3 text-gray-600 text-justify;
 
   h1, h2, h3, h4, h5, h6 {
     color: rgb(64, 128, 255);
@@ -39,12 +39,10 @@
   }
 
   p {
+    @apply tracking-widest leading-loose;
     font-size: 16px;
-    text-align: left;
     text-indent: 0;
     margin: 5px 0;
-    line-height: 2em;
-    letter-spacing: 2px;
   }
 
 }

@@ -1,15 +1,13 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import {getSortedPostsData} from '../lib/util'
-import {GetStaticProps} from "next";
 import {rootTitle} from "./_document";
 import React from "react";
 
-export default function Home({allPostsData}) {
+export default function Home({}) {
     return (
         <>
             <Head>
-                <title>关于我 - {rootTitle}</title>
+                <title>关于我 | {rootTitle}</title>
             </Head>
             <Layout>
                 <section>
@@ -18,11 +16,4 @@ export default function Home({allPostsData}) {
             </Layout>
         </>
     )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-    const allPostsData = getSortedPostsData()
-    return {
-        props: {allPostsData}
-    }
 }

@@ -5,7 +5,7 @@ export const rootTitle = 'Laeni的博客'
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html lang="zh-CN">
+            <Html lang="zh">
                 <Head>
                     <meta charSet="utf-8"/>
                     <meta name="renderer" content="webkit"/>
@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
                     <meta property="og:image" content={`https://og-image.vercel.app/${encodeURI(rootTitle)}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}/>
                     <meta name="og:title" content={rootTitle} />
                     <meta name="twitter:card" content="summary_large_image" />
-                    <script src="/font_2464095_dzqu3ber32w.js"/>
+                    <script src="/font_2464095_9om5uo9i0uu.js"/>
                 </Head>
                 <body>
                     <Main />
