@@ -40,19 +40,19 @@ export default withRouter(class Header extends React.Component<Props, State> {
         const { router, widget } = this.props;
 
         const menus = [
-            { name: "文章", path: "/posts" },
-            { name: "随笔", path: "/essay" },
-            { name: "学习", path: "/learn" },
-            { name: "编程", path: "/program" },
+            // { name: "文章", path: "/posts" },
+            // { name: "随笔", path: "/essay" },
+            // { name: "学习", path: "/learn" },
+            // { name: "编程", path: "/program" },
             // { name: "摄影", path: "/photo" },
-            { name: "美图", path: "/picture" },
-            { name: "归档", path: "/archive" },
+            // { name: "美图", path: "/picture" },
+            // { name: "归档", path: "/archive" },
             { name: "关于", path: "/about" },
         ]
 
         return (
-            <div className="bg-gray-900 text-gray-300">
-                <div className="md:container md:mx-auto h-12 lg:h-14 flex justify-between items-center px-3">
+            <div className="bg-gray-900">
+                <div className="md:container md:mx-auto text-gray-300 h-12 lg:h-14 flex justify-between items-center px-3">
                     {/*左边*/}
                     <div className="flex items-center">
                         <Link href="/">
@@ -83,9 +83,9 @@ export default withRouter(class Header extends React.Component<Props, State> {
                 {click && (
                     <div className="relative block sm:hidden z-20">
                         <div className="absolute inset-0 bg-gray-200 overflow-auto" style={{height: 'calc(100vh - 3rem)', width: '100vw'}}>
-                            <div className="bg-gray-800">
-                                {/*菜单*/}
-                                <ol>
+                            {/*菜单*/}
+                            <div className="bg-gray-800 text-gray-300">
+                                <ul>
                                     {menus.map((menu, i, array) => (
                                         <Link key={menu.name} href={menu.path}>
                                             <li key={menu.path} className={`px-5 py-3 ${i+1 !== array.length ? 'border-b border-gray-600' : ''} ${router.asPath.startsWith(menu.path) ? styles.select : ''}`}>
@@ -93,8 +93,10 @@ export default withRouter(class Header extends React.Component<Props, State> {
                                             </li>
                                         </Link>
                                     ))}
-                                </ol>
-                                {/*其他小组件*/}
+                                </ul>
+                            </div>
+                            {/*其他小组件*/}
+                            <div className="px-3 pb-2 pt-4">
                                 {widget}
                             </div>
                         </div>

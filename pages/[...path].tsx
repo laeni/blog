@@ -1,5 +1,5 @@
 import Layout from '../components/layout'
-import {getAllPostPath, getPostData, PostsContent} from '../lib/util'
+import {getAllPostPath, getLatestPostsTitle, getPostData, PostsContent} from '../lib/util'
 import Head from 'next/head'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import {rootTitle} from "./_document";
@@ -19,7 +19,6 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import theme from 'react-syntax-highlighter/dist/cjs/styles/prism/prism'
 
 /// region 为了减小包大小，这里仅仅注册常见的语言 - https://github.com/react-syntax-highlighter/react-syntax-highlighter#light-build
-import bash from 'refractor/lang/bash';
 import basic from 'refractor/lang/basic';
 import c from 'refractor/lang/c';
 import cpp from 'refractor/lang/cpp';
@@ -39,7 +38,7 @@ import python from 'refractor/lang/python';
 import sql from 'refractor/lang/sql';
 import typescript from 'refractor/lang/typescript';
 import yaml from 'refractor/lang/yaml';
-SyntaxHighlighter.registerLanguage('bash', bash);
+import React from "react";
 SyntaxHighlighter.registerLanguage('basic', basic);
 SyntaxHighlighter.registerLanguage('c', c);
 SyntaxHighlighter.registerLanguage('cpp', cpp);
@@ -65,6 +64,8 @@ const components: Components = {
   code({node, inline, className, children, ...props}) {
     const match = /language-(\w+)/.exec(className || '')
 
+    // 删除自动添加的换行
+    children = children.map(value => String(value).replace(/[\n]+$/, ''));
     if (!inline) {
       return (
           <SyntaxHighlighter
@@ -83,27 +84,45 @@ const components: Components = {
   }
 }
 
-export default function Post({ postData }: { postData: PostsContent }) {
-  return <Layout>
-    <Head>
-      <title>{postData.title} | {rootTitle}</title>
-    </Head>
-    <article>
-      <div className="p-2 grid">
-        <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
-        <div className="text-xs px-1">
-          <svg className="icon" aria-hidden="true">
-            <use xlinkHref="#icon-shijian"/>
-          </svg>
-          <span className="pl-1">{postData.date}</span>
-        </div>
-        <div className="border-b-2 pt-4 mx-1"/>
-      </div>
-      <div className={styles.content}>
-        <ReactMarkdown components={components} children={postData.content} skipHtml/>
-      </div>
-    </article>
-  </Layout>
+export default function Post({ postData, latestPosts }: { postData: PostsContent, latestPosts: any }) {
+  return (
+      <Layout latestPosts={latestPosts}>
+        <Head>
+          <title>{postData.title} | {rootTitle}</title>
+        </Head>
+        <article>
+          <div className="p-2 grid">
+            <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
+            <div className="flex text-xs text-gray-500 px-1">
+              {/*作者*/}
+              {postData.author && (
+                  <div className="px-1">
+                    <svg className="icon" aria-hidden="true">
+                      <use xlinkHref="#icon-zuozhe"/>
+                    </svg>
+                    <span className="pl-1">{postData.author}</span>
+                  </div>
+              )}
+              {/*更新时间(或创建时间)*/}
+              {
+                (postData.updated || postData.date) && (
+                    <div className="px-1">
+                      <svg className="icon" aria-hidden="true">
+                        <use xlinkHref="#icon-shijian"/>
+                      </svg>
+                      <span className="pl-1">{postData.updated || postData.date}</span>
+                    </div>
+                )
+              }
+            </div>
+            <div className="border-b-2 pt-4 mx-1"/>
+          </div>
+          <div className={styles.content}>
+            <ReactMarkdown components={components} children={postData.content} skipHtml/>
+          </div>
+        </article>
+      </Layout>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -115,8 +134,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData: PostsContent = await getPostData(params.path)
+  const postData: PostsContent = await getPostData(params.path);
+  // 获取最新文章标题
+  const latestPosts = getLatestPostsTitle();
+
   return {
-    props: { postData }
+    props: { postData, latestPosts }
   }
 }
