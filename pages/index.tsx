@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import {genRss, getSortedPostsData} from '../lib/util'
+import {genRss, getLatestPostsTitle, getSortedPostsData} from '../lib/util'
 import Link from 'next/link'
 import {GetStaticProps} from "next";
 import {rootTitle} from "./_document";
@@ -8,23 +8,35 @@ import React from "react";
 import Carousel from "../components/carousel";
 import styles from "./index.module.scss"
 
-// 轮播图片
-const listImg = [
-    'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner1.jpg',
-    'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner2.jpg',
-    'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner3.jpg',
-];
+// 轮播
+const carouselData = [
+    {
+        img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/forward-proxy.jpg',
+        blank: false,
+        url: '/program/net/forward-proxy'
+    },
+    {
+        img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner2.jpg',
+        blank: false,
+        url: '/'
+    },
+    {
+        img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner3.jpg',
+        blank: false,
+        url: '/'
+    },
+]
 
-export default function Home({allPostsData}) {
+export default function Home({allPostsData, latestPosts}) {
     // 轮播
-    const carousel = <Carousel listImg={listImg}/>
+    const carousel = <Carousel data={carouselData}/>
 
     return (
         <>
             <Head>
                 <title>{rootTitle}</title>
             </Head>
-            <Layout carousel={carousel}>
+            <Layout carousel={carousel} latestPosts={latestPosts}>
                 <section>
                     <ul className="pb-2">
                         {allPostsData.map(({pt, title, author, date, updated, description, content}) => (
@@ -73,12 +85,14 @@ export default function Home({allPostsData}) {
 
 export const getStaticProps: GetStaticProps = async () => {
     // 获取所有文章数据
-    const allPostsData = getSortedPostsData()
+    const allPostsData = getSortedPostsData();
+    // 获取最新文章标题
+    const latestPosts = getLatestPostsTitle();
 
     // 生成 RSS 文件
     genRss(allPostsData)
 
     return {
-        props: {allPostsData}
+        props: {allPostsData, latestPosts}
     }
 }

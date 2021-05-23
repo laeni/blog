@@ -50,7 +50,13 @@ export interface PostsMatter extends Matter {
     pt: string | string[]
 }
 
-export interface IndexData extends PostsMatter {
+/**
+ * 完整文章内容.
+ */
+export interface CompletePosts extends PostsMatter {
+    /**
+     * 文章内容.
+     */
     content: string;
 }
 
@@ -64,14 +70,24 @@ export interface PostsContent extends PostsMatter {
     content: string
 }
 
-// 博客内容目录
-const contentDir = path.join(process.cwd(), 'content')
+// 博客内容所在目录
+const contentDir = path.join(process.cwd(), 'content');
+// 所有文章路径
+let pathList: string[] | null = null;
+// 所有文章数据
+let posts: CompletePosts[] | null = null;
 
-export function getSortedPostsData(): IndexData[] {
+/**
+ * 获取全部文章数据.
+ */
+function getAllPostsData(): CompletePosts[] {
+    if (posts) {
+        return posts;
+    }
+
     // 读取文章路径下的所有文章路径(默认不包含README.md)
     const fileNames = readdirSync(contentDir)
-
-    const allPostsData: IndexData[] = fileNames.map(fileName => {
+    const allPostsData: CompletePosts[] = fileNames.map(fileName => {
         // Remove ".md" from file name to get pt
         const pt = fileName.replace(/\.md$/, '')
 
@@ -84,7 +100,6 @@ export function getSortedPostsData(): IndexData[] {
         // Combine the data with the pt
         return { pt, ...(matterResult.data as Matter), content: matterResult.content }
     })
-
     // 如果 description 为空,则尝试获取第一段作为 description
     allPostsData.forEach(value => {
         const {description, content} = value;
@@ -100,11 +115,48 @@ export function getSortedPostsData(): IndexData[] {
             }
         }
     })
-    return allPostsData
+
+    return posts = allPostsData;
+}
+
+export function getSortedPostsData(): CompletePosts[] {
+    return getAllPostsData()
         // 对于首页,只展示有 description 的文章
         .filter(({description}) => description)
         // 根据创建时间排序
         .sort((a, b) => a.date < b.date ? 1 : -1);
+}
+
+/**
+ * 最多获取 size 篇最新的文章标题和地址
+ * @param size 最多返回的标题数量,默认为10
+ */
+export function getLatestPostsTitle(size = 10): {title: string; path: string}[] {
+    const titles: {title: string; path: string}[] = [];
+
+    const sortByUpdated = getAllPostsData()
+        // 时间相同的根据名称进行排序
+        .sort((a, b) => a.title < b.title ? -1 : 1)
+        // 根据更新时间进行排序
+        .sort((a, b) => {
+            const aDate = a.updated || a.date || '';
+            const bDate = b.updated || b.date || '';
+
+            return aDate < bDate ? 1 : -1
+        });
+    // 筛选10篇
+    for (const post of sortByUpdated) {
+        if (titles.length < size) {
+            // 文章标题,用于导航到该文章
+            const postPath = post.pt instanceof Array ? path.join(...post.pt) : post.pt;
+            titles.push({
+                title: post.title,
+                path: postPath
+            })
+        }
+    }
+
+    return titles;
 }
 
 /**
@@ -147,6 +199,10 @@ export async function getPostData(pt: string | string[]): Promise<PostsContent> 
  * @param ignore    需要排除的文件名
  */
 function readdirSync(basePath: string, childPath: string = '', ignore: string[] = ['README.md']): string[] {
+    if (!childPath && pathList) {
+        return pathList;
+    }
+
     const fileNames: string[] = []
 
     for (const fileName of fs.readdirSync(path.join(basePath, childPath))) {
@@ -160,6 +216,9 @@ function readdirSync(basePath: string, childPath: string = '', ignore: string[] 
         }
     }
 
+    if (!childPath) {
+        pathList = fileNames;
+    }
     return fileNames
 }
 

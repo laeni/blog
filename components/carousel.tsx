@@ -1,11 +1,16 @@
 import React from "react";
 import styles from "./carousel.module.scss"
+import Link from "next/link";
 
 interface Props {
     /**
      * 轮播图。
      */
-    listImg: string[],
+    data: Array<{
+        img: string,    // 轮博图
+        blank?: boolean, // 是否在空白页打开
+        url: string     // 点击后跳斩的url
+    }>,
 }
 
 interface State {
@@ -28,7 +33,7 @@ export default class Carousel extends React.Component<Props, State> {
 
     // 下一页
     nextChange = () => {
-        if (this.state.showIndex === this.props.listImg.length - 1) {
+        if (this.state.showIndex === this.props.data.length - 1) {
             this.setState({showIndex: 0})
         } else {
             this.setState({showIndex: this.state.showIndex + 1})
@@ -37,7 +42,7 @@ export default class Carousel extends React.Component<Props, State> {
     // 上一页
     prevChange = () => {
         if (this.state.showIndex === 0) {
-            this.setState({showIndex: this.props.listImg.length - 1})
+            this.setState({showIndex: this.props.data.length - 1})
         } else {
             this.setState({showIndex: this.state.showIndex - 1})
         }
@@ -60,7 +65,7 @@ export default class Carousel extends React.Component<Props, State> {
     }
 
     render() {
-        const {listImg} = this.props;
+        const {data} = this.props;
         const {showIndex} = this.state;
 
         return (
@@ -69,15 +74,21 @@ export default class Carousel extends React.Component<Props, State> {
                     <div className={`${styles.carousel} relative flex justify-center bg-gray-300 rounded-sm w-full h-full`}>
                         {/*轮播图*/}
                         <ul className="flex-1">
-                            {listImg.map((img, i) => (
-                                <li key={i} className={`absolute bg-pink-200 w-full h-full ${styles.item} ${showIndex === i ? styles.show : styles.hidden}`}>
-                                    <img src={img} className="object-cover w-full h-full" alt="轮播图"/>
+                            {data.map(({img, url, blank}, i) => (
+                                <li key={i} className={`absolute w-full h-full ${styles.item} ${showIndex === i ? styles.show : styles.hidden}`}>
+                                    {blank ? (
+                                        <a href={url} target="_blank"><img src={img} className="object-cover w-full h-full" alt="轮播图"/></a>
+                                    ) : (
+                                        <Link href={url}>
+                                            <a><img src={img} className="object-cover w-full h-full" alt="轮播图"/></a>
+                                        </Link>
+                                    )}
                                 </li>
                             ))}
                         </ul>
                         {/*小圆点*/}
                         <ul className={styles.bullet}>
-                            {listImg.map((img, i) => (
+                            {data.map((img, i) => (
                                 <li key={i}
                                     className={`${showIndex === i ? 'bg-blue-500' : 'bg-gray-500 bg-opacity-30'}`}
                                     onClick={() => this.indexChange(i)}
