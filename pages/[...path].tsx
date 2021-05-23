@@ -70,7 +70,7 @@ const components: Components = {
           <SyntaxHighlighter
               language={match?.length > 0 ? match[1] : ''}
               style={theme}
-              children={String(children).replace(/\n$/, '')}
+              children={children}
               {...props}
           />
       )
