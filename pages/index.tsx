@@ -13,7 +13,7 @@ const carouselData = [
     {
         img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/forward-proxy.jpg',
         blank: false,
-        url: '/program/net/forward-proxy'
+        url: '/note/net/forward-proxy'
     },
     {
         img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner2.jpg',
