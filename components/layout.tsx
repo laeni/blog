@@ -13,6 +13,8 @@ interface Props {
 // 友链
 const links = [
     {name: 'React', url: 'https://zh-hans.reactjs.org/'},
+    {name: 'Vue', url: 'https://v3.vuejs.org/'},
+    {name: 'Angular', url: 'https://angular.cn/'},
     {name: 'Vercel', url: 'https://vercel.com/'},
     {name: 'Next.js', url: 'https://nextjs.org/'},
     {name: 'Nuxt.js', url: 'https://nuxtjs.org/'},
