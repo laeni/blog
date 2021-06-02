@@ -13,12 +13,14 @@ interface Props {
 // 友链
 const links = [
     {name: 'React', url: 'https://zh-hans.reactjs.org/'},
-    {name: 'Vue', url: 'https://v3.vuejs.org/'},
-    {name: 'Angular', url: 'https://angular.cn/'},
-    {name: 'Vercel', url: 'https://vercel.com/'},
+    // {name: 'Vue', url: 'https://v3.vuejs.org/'},
+    // {name: 'Angular', url: 'https://angular.cn/'},
     {name: 'Next.js', url: 'https://nextjs.org/'},
-    {name: 'Nuxt.js', url: 'https://nuxtjs.org/'},
+    {name: 'UmiJS', url: 'https://umijs.org/zh-CN'},
+    // {name: 'Nuxt.js', url: 'https://nuxtjs.org/'},
     {name: 'Tailwind CSS', url: 'https://tailwindcss.com/'},
+    {name: 'Vercel', url: 'https://vercel.com/'},
+    {name: 'Ant Design', url: 'https://ant.design/'},
     {name: '阿里巴巴矢量图标库', url: 'https://www.iconfont.cn/'},
     {name: '叶子个人博客', url: 'https://www.yezismile.com/'},
 ];
