@@ -5,10 +5,16 @@ import { withRouter, NextRouter } from 'next/router'
 
 interface Props {
     router: NextRouter
+    /**
+     * 小部件，当宽度很小时，右边的部分小部件将被隐藏，这时候会放在顶部下拉列表中显示。
+     */
     widget?: ReactDOM
 }
 
 interface State {
+    /**
+     * 顶部下拉列表展开状态.
+     */
     click: boolean
 }
 
@@ -22,17 +28,32 @@ export default withRouter(class Header extends React.Component<Props, State> {
         this.state = { click: false };
     }
 
-    stateChange = () => {
-        const click = !this.state.click;
-        this.setState({ click });
+    // 设置下拉展开状态
+    setDropDownState = (dropDownState: boolean) => {
+        this.setState({ click: dropDownState });
         if (document) {
             const html = document.getElementsByTagName("html")[0];
-            if (click) {
+            if (dropDownState) {
                 html.classList.add('global-scrollblock')
             } else {
                 html.classList.remove('global-scrollblock')
             }
         }
+    }
+
+    // 更改下拉的状态
+    negateDropDownState = () => this.setDropDownState(!this.state.click);
+
+    // 关闭下拉
+    closeDropDown = () => this.setDropDownState(false)
+
+    componentDidMount() {
+        // 只要导航发生变化就自动收起顶部下拉
+        this.props.router?.events?.on('routeChangeComplete', this.closeDropDown);
+    }
+
+    componentWillUnmount() {
+        this.props.router?.events?.off('routeChangeComplete', this.closeDropDown);
     }
 
     render() {
@@ -71,7 +92,8 @@ export default withRouter(class Header extends React.Component<Props, State> {
                         {/*手机版显示部分*/}
                         <div className="block sm:hidden">
                             {/*菜单按钮*/}
-                            <div className={`${styles.sm_menu} w-5 h-4 flex flex-wrap content-between`} onClick={this.stateChange}>
+                            <div className={`${styles.sm_menu} w-5 h-4 flex flex-wrap content-between`}
+                                 onClick={this.negateDropDownState}>
                                 <div className={click ? styles.div1 : ''}/>
                                 <div className={click ? styles.div2 : ''}/>
                                 <div className={click ? styles.div3 : ''}/>
