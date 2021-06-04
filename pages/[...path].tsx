@@ -1,8 +1,8 @@
 import Layout from '../components/layout'
-import {getAllPostPath, getLatestPostsTitle, getPostData, PostsContent} from '../lib/util'
+import { getAllPostPath, getLatestPostsTitle, getPostData, PostsContent } from '../lib/util'
 import Head from 'next/head'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import {rootTitle} from "./_document";
+import { rootTitle } from "./_document";
 import styles from "./[...path].module.scss"
 import ReactMarkdown from 'react-markdown'
 import { Components } from "react-markdown/src/ast-to-react";
@@ -61,23 +61,23 @@ SyntaxHighlighter.registerLanguage('yaml', yaml);
 /// endregion
 
 const components: Components = {
-  code({node, inline, className, children, ...props}) {
+  code({ node, inline, className, children, ...props }) {
     const match = /language-(\w+)/.exec(className || '')
 
     // 删除自动添加的换行
     children = children.map(value => String(value).replace(/[\n]+$/, ''));
     if (!inline) {
       return (
-          <SyntaxHighlighter
-              language={match?.length > 0 ? match[1] : ''}
-              style={theme}
-              children={children}
-              {...props}
-          />
+        <SyntaxHighlighter
+          language={match?.length > 0 ? match[1] : ''}
+          style={theme}
+          children={children}
+          {...props}
+        />
       )
     } else {
       return (
-          <code className="bg-gray-200 rounded-sm px-1">{children}</code>
+        <code className="bg-gray-200 rounded-sm px-1">{children}</code>
       )
     }
 
@@ -86,42 +86,42 @@ const components: Components = {
 
 export default function Post({ postData, latestPosts }: { postData: PostsContent, latestPosts: any }) {
   return (
-      <Layout latestPosts={latestPosts}>
-        <Head>
-          <title>{postData.title} | {rootTitle}</title>
-        </Head>
-        <article>
-          <div className="p-2 grid">
-            <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
-            <div className="flex text-xs text-gray-500 px-1">
-              {/*作者*/}
-              {postData.author && (
-                  <div className="px-1">
-                    <svg className="icon" aria-hidden="true">
-                      <use xlinkHref="#icon-zuozhe"/>
-                    </svg>
-                    <span className="pl-1">{postData.author}</span>
-                  </div>
-              )}
-              {/*更新时间(或创建时间)*/}
-              {
-                (postData.updated || postData.date) && (
-                    <div className="px-1">
-                      <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-shijian"/>
-                      </svg>
-                      <span className="pl-1">{postData.updated || postData.date}</span>
-                    </div>
-                )
-              }
-            </div>
-            <div className="border-b-2 pt-4 mx-1"/>
+    <Layout latestPosts={latestPosts}>
+      <Head>
+        <title>{postData.title} | {rootTitle}</title>
+      </Head>
+      <article>
+        <div className="p-2 grid">
+          <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
+          <div className="flex text-xs text-gray-500 px-1">
+            {/*作者*/}
+            {postData.author && (
+              <div className="px-1">
+                <svg className="icon" aria-hidden="true">
+                  <use xlinkHref="#icon-zuozhe" />
+                </svg>
+                <span className="pl-1">{postData.author}</span>
+              </div>
+            )}
+            {/*更新时间(或创建时间)*/}
+            {
+              (postData.updated || postData.date) && (
+                <div className="px-1">
+                  <svg className="icon" aria-hidden="true">
+                    <use xlinkHref="#icon-shijian" />
+                  </svg>
+                  <span className="pl-1">{postData.updated || postData.date}</span>
+                </div>
+              )
+            }
           </div>
-          <div className={styles.content}>
-            <ReactMarkdown components={components} children={postData.content} skipHtml/>
-          </div>
-        </article>
-      </Layout>
+          <div className="border-b-2 pt-4 mx-1" />
+        </div>
+        <div className={styles.content}>
+          <ReactMarkdown components={components} children={postData.content} skipHtml />
+        </div>
+      </article>
+    </Layout>
   )
 }
 

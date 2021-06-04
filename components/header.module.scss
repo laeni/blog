@@ -1,12 +1,12 @@
 /*菜单选择效果*/
 .select {
-    @apply text-gray-100 font-bold;
+    @apply font-bold;
 }
 
 /*sm宽度下的菜单按钮及动画*/
 .sm_menu {
     div {
-        @apply bg-blue-50 w-full rounded-sm;
+        @apply bg-gray-500 w-full rounded-sm;
         height: 2px;
         transition: transform 500ms, display 500ms;
         transform-origin: 0 1.2px;
