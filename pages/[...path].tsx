@@ -55,8 +55,8 @@ export default function Post({ postData, latestPosts }: { postData: CompletePost
           <ReactMarkdown components={components} children={postData.content} skipHtml />
         </div>
         {/* 文章在github的地址 */}
-        <div className="text-gray-400 dark:text-gray-500 pb-2">
-          <hr className="mt-5 mb-3 mx-1 border-gray-200 dark:border-gray-700" />
+        <div className="px-3 text-sm text-gray-400 dark:text-gray-500 pb-2">
+          <hr className="mt-5 mb-3 border-gray-200 dark:border-gray-700" />
           <span>发现错误或想为文章做出贡献？ </span>
           <Link href={githubPage}><a className="text-blue-400 dark:text-blue-500" target="_blank">在 GitHub 上编辑此页面！</a></Link>
         </div>
