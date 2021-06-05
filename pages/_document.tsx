@@ -5,7 +5,7 @@ export const rootTitle = 'Laeni的博客'
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="zh" className="h-full dark">
+      <Html lang="zh" className="h-full">
         <Head>
           <meta charSet="utf-8" />
           <meta name="renderer" content="webkit" />
