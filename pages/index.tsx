@@ -7,6 +7,7 @@ import { rootTitle } from "./_document";
 import React from "react";
 import Carousel from "../components/carousel";
 import styles from "./index.module.scss"
+import PostsBrief from '../components/posts-brief';
 
 // 轮播
 const carouselData = [
@@ -51,29 +52,10 @@ export default function Home({ allPostsData, latestPosts }) {
                 <div className={styles.content}>
                   {description || content}
                 </div>
-                {/*其他信息*/}
-                <div className="text-xs text-gray-500 flex py-1">
-                  {/*作者*/}
-                  {author && (
-                    <div className="px-1">
-                      <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-zuozhe" />
-                      </svg>
-                      <span className="pl-1">{author}</span>
-                    </div>
-                  )}
-                  {/*更新时间(或创建时间)*/}
-                  {
-                    (updated || date) && (
-                      <div className="px-1">
-                        <svg className="icon" aria-hidden="true">
-                          <use xlinkHref="#icon-shijian" />
-                        </svg>
-                        <span className="pl-1">{updated || date}</span>
-                      </div>
-                    )
-                  }
-                </div>
+                {/*文章其他信息*/}
+                <PostsBrief author={author} date={date} updated={updated}
+                            className="text-xs text-gray-500 flex py-1"
+                />
               </li>
             ))}
           </ul>

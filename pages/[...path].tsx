@@ -6,6 +6,7 @@ import { rootTitle } from "./_document";
 import styles from "./[...path].module.scss"
 import ReactMarkdown from 'react-markdown'
 import { Components } from "react-markdown/src/ast-to-react";
+import PostsBrief from '../components/posts-brief';
 
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -18,7 +19,7 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 // } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import theme from 'react-syntax-highlighter/dist/cjs/styles/prism/prism'
 
-/// region 为了减小包大小，这里仅仅注册常见的语言 - https://github.com/react-syntax-highlighter/react-syntax-highlighter#light-build
+//#region  为了减小包大小，这里仅仅注册常见的语言 - https://github.com/react-syntax-highlighter/react-syntax-highlighter#light-build
 import basic from 'refractor/lang/basic';
 import c from 'refractor/lang/c';
 import cpp from 'refractor/lang/cpp';
@@ -58,7 +59,7 @@ SyntaxHighlighter.registerLanguage('python', python);
 SyntaxHighlighter.registerLanguage('sql', sql);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
 SyntaxHighlighter.registerLanguage('yaml', yaml);
-/// endregion
+//#endregion
 
 const components: Components = {
   code({ node, inline, className, children, ...props }) {
@@ -93,28 +94,10 @@ export default function Post({ postData, latestPosts }: { postData: PostsContent
       <article>
         <div className="p-2 grid">
           <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
-          <div className="flex text-xs text-gray-500 px-1">
-            {/*作者*/}
-            {postData.author && (
-              <div className="px-1">
-                <svg className="icon" aria-hidden="true">
-                  <use xlinkHref="#icon-zuozhe" />
-                </svg>
-                <span className="pl-1">{postData.author}</span>
-              </div>
-            )}
-            {/*更新时间(或创建时间)*/}
-            {
-              (postData.updated || postData.date) && (
-                <div className="px-1">
-                  <svg className="icon" aria-hidden="true">
-                    <use xlinkHref="#icon-shijian" />
-                  </svg>
-                  <span className="pl-1">{postData.updated || postData.date}</span>
-                </div>
-              )
-            }
-          </div>
+          {/*文章其他信息*/}
+          <PostsBrief author={postData.author} date={postData.date} updated={postData.updated}
+                      className="text-xs text-gray-500 flex py-1"
+          />
           <div className="border-b-2 pt-4 mx-1" />
         </div>
         <div className={styles.content}>
