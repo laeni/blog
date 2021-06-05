@@ -137,10 +137,10 @@ export function getLatestPostsTitle(size = 10): { title: string; path: string }[
   const sortByUpdated = getAllPostsData()
     // 时间相同的根据名称进行排序
     .sort((a, b) => a.title < b.title ? -1 : 1)
-    // 根据更新时间进行排序
+    // 根据创建时间进行反向排序
     .sort((a, b) => {
-      const aDate = a.updated || a.date || '';
-      const bDate = b.updated || b.date || '';
+      const aDate = a.date || a.updated || '';
+      const bDate = b.date || b.updated || '';
 
       return aDate < bDate ? 1 : -1
     });
