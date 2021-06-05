@@ -47,6 +47,15 @@ export default withRouter(class Header extends React.Component<Props, State> {
   // 关闭下拉
   closeDropDown = () => this.setDropDownState(false)
 
+  // 切换夜间模式
+  /*darkModeSwitch = () => {
+    if (document.querySelector('html').classList.contains('dark')) {
+      document.querySelector('html').classList.remove('dark')
+    } else {
+      document.querySelector('html').classList.add('dark')
+    }
+  }*/
+
   componentDidMount() {
     // 只要导航发生变化就自动收起顶部下拉
     this.props.router?.events?.on('routeChangeComplete', this.closeDropDown);
@@ -73,7 +82,7 @@ export default withRouter(class Header extends React.Component<Props, State> {
 
     return (
       <div className="flex-none relative z-50">
-        <div className="leading-3 bg-white ring-1 ring-gray-900 ring-opacity-5 shadow-sm py-2">
+        <div className="leading-3 bg-white dark:bg-black ring-1 ring-gray-900 ring-opacity-5 shadow-sm py-2">
           <div className="md:container md:mx-auto h-12 lg:h-14 flex justify-between items-center px-3">
             {/*左边*/}
             <div className="flex items-center">
@@ -87,13 +96,14 @@ export default withRouter(class Header extends React.Component<Props, State> {
                   </li>
                 ))}
               </ul>
+              {/*<button onClick={this.darkModeSwitch}>夜间模式切换</button>*/}
             </div>
             {/*右边*/}
             <div className="flex items-center">
               {/* github */}
               <div className="p-1 mx-1">
                 <a href="https://github.com/laeni/blog" target="_blank">
-                  <svg className="icon text-gray-500" aria-hidden="true">
+                  <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
                     <use xlinkHref="#icon-github" />
                   </svg>
                 </a>
@@ -103,9 +113,9 @@ export default withRouter(class Header extends React.Component<Props, State> {
                 {/*菜单按钮*/}
                 <div className={`${styles.sm_menu} w-5 h-4 flex flex-wrap content-between`}
                   onClick={this.negateDropDownState}>
-                  <div className={click ? styles.div1 : ''} />
-                  <div className={click ? styles.div2 : ''} />
-                  <div className={click ? styles.div3 : ''} />
+                  <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div1 : ''}`} />
+                  <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div2 : ''}`} />
+                  <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div3 : ''}`} />
                 </div>
               </div>
             </div>
@@ -114,9 +124,9 @@ export default withRouter(class Header extends React.Component<Props, State> {
         {/*小屏幕菜单区*/}
         {click && (
           <div className="relative block sm:hidden">
-            <div className="absolute inset-0 bg-gray-50 overflow-auto" style={{ height: 'calc(100vh - 3rem)', width: '100vw' }}>
+            <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 overflow-auto" style={{ height: 'calc(100vh - 3rem)', width: '100vw' }}>
               {/*菜单*/}
-              <div className="bg-gray-100 text-gray-600 text-sm">
+              <div className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm">
                 <ul>
                   {menus.map((menu, i, array) => (
                     <Link key={menu.name} href={menu.path}>

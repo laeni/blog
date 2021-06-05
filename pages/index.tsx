@@ -41,15 +41,15 @@ export default function Home({ allPostsData, latestPosts }) {
         <section>
           <ul className="pb-2">
             {allPostsData.map(({ pt, title, author, date, updated, description, content }) => (
-              <li key={pt} className={`py-3 px-2 border-b ${styles.postsLi}`}>
+              <li key={pt} className={`py-3 px-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800`}>
                 {/*标题*/}
-                <div className="text-lg text-gray-600 truncate">
+                <div className="text-lg text-gray-600 dark:text-gray-400 truncate">
                   <Link href={`/${pt}`}>
                     <a className="font-bold">{title}</a>
                   </Link>
                 </div>
                 {/*摘要*/}
-                <div className={styles.content}>
+                <div className={`${styles.content} break-all text-justify pt-2 leading-normal text-sm text-gray-500 dark:text-gray-500`}>
                   {description || content}
                 </div>
                 {/*文章其他信息*/}

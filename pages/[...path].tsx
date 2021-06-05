@@ -1,7 +1,8 @@
 import Layout from '../components/layout'
-import { getAllPostPath, getLatestPostsTitle, getPostData, PostsContent } from '../lib/util'
+import { CompletePosts, getAllPostPath, getLatestPostsTitle, getPostData } from '../lib/util'
 import Head from 'next/head'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import Link from 'next/link'
 import { rootTitle } from "./_document";
 import styles from "./[...path].module.scss"
 import ReactMarkdown from 'react-markdown'
@@ -85,7 +86,11 @@ const components: Components = {
   }
 }
 
-export default function Post({ postData, latestPosts }: { postData: PostsContent, latestPosts: any }) {
+export default function Post({ postData, latestPosts }: { postData: CompletePosts, latestPosts: any }) {
+
+  // 该文章在github上的路径
+  const githubPage = `https://github.com/laeni/blog-content/blob/master/${postData.fileName}`
+
   return (
     <Layout latestPosts={latestPosts}>
       <Head>
@@ -93,15 +98,22 @@ export default function Post({ postData, latestPosts }: { postData: PostsContent
       </Head>
       <article>
         <div className="p-2 grid">
-          <h1 className="text-xl text-gray-600 p-1 h-10 truncate">{postData.title}</h1>
+          <h1 className="text-xl text-gray-600 dark:text-gray-300 p-1 h-10 truncate">{postData.title}</h1>
           {/*文章其他信息*/}
           <PostsBrief author={postData.author} date={postData.date} updated={postData.updated}
-                      className="text-xs text-gray-500 flex py-1"
+                      className="text-xs text-gray-500 dark:text-gray-400 flex py-1"
           />
-          <div className="border-b-2 pt-4 mx-1" />
+          <hr className="border-t-2 border-gray-200 dark:border-gray-700 mt-4 mx-1" />
         </div>
-        <div className={styles.content}>
+        {/* Markdown渲染的文章 */}
+        <div className={`${styles.content} px-3 pb-3 text-gray-600 dark:text-gray-400 text-justify`}>
           <ReactMarkdown components={components} children={postData.content} skipHtml />
+        </div>
+        {/* 文章在github的地址 */}
+        <div className="text-gray-400 dark:text-gray-500 pb-2">
+          <hr className="mt-5 mb-3 mx-1 border-gray-200 dark:border-gray-700" />
+          <span>发现错误或想为文章做出贡献？ </span>
+          <Link href={githubPage}><a className="text-blue-400 dark:text-blue-500" target="_blank">在 GitHub 上编辑此页面！</a></Link>
         </div>
       </article>
     </Layout>
@@ -117,7 +129,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData: PostsContent = await getPostData(params.path);
+  const postData: CompletePosts = await getPostData(params.path);
   // 获取最新文章标题
   const latestPosts = getLatestPostsTitle();
 

@@ -1,11 +1,4 @@
-.postsLi {
-  &:hover {
-    @apply bg-gray-50;
-  }
-}
-
 .content {
-  @apply break-all text-justify pt-2 leading-normal text-sm text-gray-500;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;

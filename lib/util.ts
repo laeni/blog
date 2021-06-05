@@ -58,16 +58,10 @@ export interface CompletePosts extends PostsMatter {
    * 文章内容.
    */
   content: string;
-}
-
-/**
- * 完整的文章内容。
- */
-export interface PostsContent extends PostsMatter {
   /**
-   * 文章内容(markdown)。
+   * 文章对应的文件路径,如'about/self.md'.
    */
-  content: string
+  fileName: string;
 }
 
 // 博客内容所在目录
@@ -89,7 +83,7 @@ function getAllPostsData(): CompletePosts[] {
   const fileNames = readdirSync(contentDir)
   const allPostsData: CompletePosts[] = fileNames.map(fileName => {
     // Remove ".md" from file name to get pt
-    const pt = fileName.replace(/\.md$/, '')
+    const pt = fileName.replace(/\.md[x]?$/, '')
 
     //读取markdown文件为字符串
     const fileContents = fs.readFileSync(path.join(contentDir, fileName), 'utf8')
@@ -98,7 +92,7 @@ function getAllPostsData(): CompletePosts[] {
     const matterResult = matter(fileContents)
 
     // Combine the data with the pt
-    return { pt, ...(matterResult.data as Matter), content: matterResult.content }
+    return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
   })
   // 如果 description 为空,则尝试获取第一段作为 description
   allPostsData.forEach(value => {
@@ -178,16 +172,21 @@ export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; local
  *
  * @param pt 博客文件路径
  */
-export async function getPostData(pt: string | string[]): Promise<PostsContent> {
-  const fullPath = (pt instanceof Array ? path.join(contentDir, ...pt) : path.join(contentDir, pt)) + '.md'
+export async function getPostData(pt: string | string[]): Promise<CompletePosts> {
+  // 不包含前缀的路径
+  const fullPathPrefix = (pt instanceof Array ? path.join(contentDir, ...pt) : path.join(contentDir, pt));
+  // 后缀
+  const suffix: '.md' | '.mdx' = fs.existsSync(fullPathPrefix + '.md') ? '.md' : '.mdx'
+  // 文章路径
+  const fileName: string = (pt instanceof Array ? path.join(...pt) : pt) + suffix
 
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const fileContents = fs.readFileSync(fullPathPrefix + suffix, 'utf8')
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents)
 
   // Combine the data with the pt and contentHtml
-  return { pt, content: matterResult.content, ...(matterResult.data as Matter) }
+  return { pt, fileName, content: matterResult.content, ...(matterResult.data as Matter) }
 }
 
 /**
@@ -198,7 +197,7 @@ export async function getPostData(pt: string | string[]): Promise<PostsContent> 
  * @param childPath 子目录
  * @param ignore    需要排除的文件名
  */
-function readdirSync(basePath: string, childPath: string = '', ignore: string[] = ['README.md']): string[] {
+function readdirSync(basePath: string, childPath: string = '', ignore: string[] = ['README.md', 'README.mdx']): string[] {
   if (!childPath && pathList) {
     return pathList;
   }
@@ -210,7 +209,7 @@ function readdirSync(basePath: string, childPath: string = '', ignore: string[] 
     if (fs.statSync(now).isDirectory()) {
       fileNames.push(...readdirSync(basePath, path.join(childPath, fileName)))
     } else {
-      if (now.endsWith(".md") && !ignore.find(value => value.toUpperCase() === fileName.toUpperCase())) {
+      if ((now.endsWith(".md") || now.endsWith(".mdx")) && !ignore.find(value => value.toUpperCase() === fileName.toUpperCase())) {
         fileNames.push(path.join(childPath, fileName))
       }
     }

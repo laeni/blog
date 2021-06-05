@@ -5,7 +5,7 @@ export const rootTitle = 'Laeni的博客'
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="zh" className="h-full bg-gray-50">
+      <Html lang="zh" className="h-full dark">
         <Head>
           <meta charSet="utf-8" />
           <meta name="renderer" content="webkit" />
@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
           <script src="/font_2464095_8m8uychzspt.js" />
         </Head>
-        <body className="antialiased text-gray-600">
+        <body className="antialiased bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300">
           <Main />
           <NextScript />
         </body>

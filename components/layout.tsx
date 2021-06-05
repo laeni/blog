@@ -32,14 +32,14 @@ export default function Layout({ children, carousel, latestPosts }: PropsWithChi
       {/*最新文章(最多展示前10篇文章)*/}
       {latestPosts?.length > 0 && (
         <div>
-          <div className="border-b">
-            <h2 className="text-xl text-gray-600 py-2">最新文章</h2>
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl text-gray-600 dark:text-gray-400 py-2">最新文章</h2>
           </div>
-          <ul className="text-sm text-gray-600 pb-2">
+          <ul className="text-sm text-gray-600 dark:text-gray-400 pb-2">
             {latestPosts.map(value => (
               <li key={value.path} className="truncate py-2">
                 <Link href={`/${value.path}`}><a>
-                  <svg className="icon" aria-hidden="true">
+                  <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
                     <use xlinkHref="#icon-wenzhang" />
                   </svg>
                   <span className="pl-1">{value.title}</span>
@@ -51,14 +51,14 @@ export default function Layout({ children, carousel, latestPosts }: PropsWithChi
       )}
       {/*友情链接*/}
       <div>
-        <div className="border-b">
-          <h2 className="text-xl text-gray-600 pt-6 pb-2">友情链接</h2>
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl text-gray-600 dark:text-gray-400 pt-6 pb-2">友情链接</h2>
         </div>
-        <ul className="flex flex-wrap justify-evenly text-sm text-gray-600 pb-2">
+        <ul className="flex flex-wrap justify-evenly text-sm text-gray-600 dark:text-gray-400 pb-2">
           {links.map(value => (
             <li key={value.name} className="py-2 px-1">
               <a href={value.url} target="_blank">
-                <svg className="icon text-gray-500" aria-hidden="true">
+                <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
                   <use xlinkHref="#icon-youqinglianjie" />
                 </svg>
                 <span className="pl-1">{value.name}</span>
@@ -82,7 +82,7 @@ export default function Layout({ children, carousel, latestPosts }: PropsWithChi
                 <div className="m-0 sm:px-3 sm:pt-3">{carousel}</div>
               )}
 
-              <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800">
+              <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
                 {/*左边: 主内容区*/}
                 <div className="flex-grow w-0">
                   {children}

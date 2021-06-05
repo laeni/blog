@@ -1,6 +1,4 @@
 .content {
-  @apply px-3 pb-3 text-gray-600 text-justify;
-
   h1, h2, h3, h4, h5, h6 {
     color: rgb(64, 128, 255);
     letter-spacing: 2px;
@@ -47,5 +45,9 @@
 
   a {
      text-decoration: underline;
+  }
+
+  hr {
+    @apply border-gray-400
   }
 }
