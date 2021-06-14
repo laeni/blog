@@ -56,7 +56,7 @@ export default function Layout({ children, carousel, latestPosts }: PropsWithChi
         </div>
         <ul className="flex flex-wrap justify-evenly text-sm text-gray-600 dark:text-gray-400 pb-2">
           {links.map(value => (
-            <li key={value.name} className="py-2 px-1">
+            <li key={value.name} className="truncate py-2 px-1">
               <a href={value.url} target="_blank">
                 <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
                   <use xlinkHref="#icon-youqinglianjie" />
