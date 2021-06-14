@@ -4,6 +4,17 @@ import matter from 'gray-matter'
 import { ParsedUrlQuery } from "querystring";
 import RSS from 'rss'
 import { rootTitle } from "../pages/_document";
+import unified from 'unified'
+import markdown from 'remark-parse'
+import remark2rehype from 'remark-rehype'
+// import doc from 'rehype-document'
+// import format from 'rehype-format'
+// import html from 'rehype-stringify'
+// import report from 'vfile-reporter'
+import stringify from 'remark-stringify'
+import micromark from 'micromark'
+
+
 
 /**
  * 文章元数据.
@@ -102,7 +113,7 @@ function getAllPostsData(): CompletePosts[] {
       for (const row of content.split(/\n/)) {
         if (row?.trim()) {
           if (!row.startsWith('#') && row.search(/[*-]{2,}/)) {
-            value.description = row.trim();
+            value.description = removeMdSymbol(row.trim());
           }
           break;
         }
@@ -219,6 +230,13 @@ function readdirSync(basePath: string, childPath: string = '', ignore: string[] 
     pathList = fileNames;
   }
   return fileNames
+}
+
+/**
+ * 去除markdown字符串中的markdown标记.
+ */
+function removeMdSymbol(txt: string): string {
+  return micromark(txt).replace(/<[^>]+>/g,"")
 }
 
 /**
