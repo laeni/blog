@@ -12,19 +12,14 @@ import PostsBrief from '../components/posts-brief';
 // 轮播
 const carouselData = [
   {
+    img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/dva.jpg',
+    blank: false,
+    url: '/note/web/umijs-plugin'
+  },
+  {
     img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/forward-proxy.jpg',
     blank: false,
     url: '/note/net/forward-proxy'
-  },
-  {
-    img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner2.jpg',
-    blank: false,
-    url: '/'
-  },
-  {
-    img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/test/banner3.jpg',
-    blank: false,
-    url: '/'
   },
 ]
 
