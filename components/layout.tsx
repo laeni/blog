@@ -27,7 +27,7 @@ const links = [
 
 export default function Layout({ children, carousel, latestPosts }: PropsWithChildren<Props>) {
   // 小组件渲染
-  const widget = (
+  const widget: ReactElement = (
     <>
       {/*最新文章(最多展示前10篇文章)*/}
       {latestPosts?.length > 0 && (
