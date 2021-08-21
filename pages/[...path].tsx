@@ -43,7 +43,7 @@ export default function Post({ postData, latestPosts }: { postData: CompletePost
       </Head>
       <article>
         <div className="p-2 grid">
-          <h1 className="text-xl text-gray-600 dark:text-gray-300 p-1 h-10 truncate">{postData.title}</h1>
+          <h1 className={`${styles.title} text-xl text-gray-600 dark:text-gray-300 p-1 max-h-16`}>{postData.title}</h1>
           {/*文章其他信息*/}
           <PostsBrief author={postData.author} date={postData.date} updated={postData.updated}
                       className="text-xs text-gray-500 dark:text-gray-400 flex py-1"
