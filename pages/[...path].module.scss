@@ -44,7 +44,9 @@
   }
 
   p {
-    @apply tracking-widest leading-loose break-all;
+    @apply tracking-widest leading-loose;
+    @apply break-all; // 强制换行，否则长单词会导致布局混乱
+    @apply whitespace-pre-wrap; // 保留元素中的换行和空格。文本将被正常包装。
     font-size: 16px;
     text-indent: 0;
     margin: 5px 0;
