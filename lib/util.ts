@@ -4,16 +4,7 @@ import matter from 'gray-matter'
 import { ParsedUrlQuery } from "querystring";
 import RSS from 'rss'
 import { rootTitle } from "../pages/_document";
-import unified from 'unified'
-import markdown from 'remark-parse'
-import remark2rehype from 'remark-rehype'
-// import doc from 'rehype-document'
-// import format from 'rehype-format'
-// import html from 'rehype-stringify'
-// import report from 'vfile-reporter'
-import stringify from 'remark-stringify'
 import micromark from 'micromark'
-
 
 
 /**
@@ -94,7 +85,11 @@ function getAllPostsData(): CompletePosts[] {
   const fileNames = readdirSync(contentDir)
   const allPostsData: CompletePosts[] = fileNames.map(fileName => {
     // Remove ".md" from file name to get pt
-    const pt = fileName.replace(/\.md[x]?$/, '')
+    let pt = fileName.replace(/\.md[x]?$/, '');
+    // 去除 index 结尾的路径
+    if (pt.endsWith('index')) {
+      pt = pt.slice(0, pt.length - ('index'.length + 1));
+    }
 
     //读取markdown文件为字符串
     const fileContents = fs.readFileSync(path.join(contentDir, fileName), 'utf8')
@@ -170,11 +165,15 @@ export function getLatestPostsTitle(size = 10): { title: string; path: string }[
 export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; locale?: string }> {
   const fileNames = readdirSync(contentDir)
   return fileNames.map(fileName => {
-    return {
-      params: {
-        path: fileName.replace(/\.md$/, '').split(path.sep)
-      }
+    // 原始文章路径
+    let pt = fileName.replace(/\.md$/, '').split(path.sep);
+
+    // 去除 index 结尾的路径
+    if (pt[pt.length - 1] === 'index') {
+      pt = pt.slice(0, pt.length - 1);
     }
+
+    return { params: {path: pt } }
   })
 }
 
@@ -185,16 +184,32 @@ export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; local
  */
 export async function getPostData(pt: string | string[]): Promise<CompletePosts> {
   // 不包含前缀的路径
-  const fullPathPrefix = (pt instanceof Array ? path.join(contentDir, ...pt) : path.join(contentDir, pt));
+  let fullPathPrefix = (pt instanceof Array ? path.join(contentDir, ...pt) : path.join(contentDir, pt));
   // 后缀
-  const suffix: '.md' | '.mdx' = fs.existsSync(fullPathPrefix + '.md') ? '.md' : '.mdx'
-  // 文章路径
-  const fileName: string = (pt instanceof Array ? path.join(...pt) : pt) + suffix
+  let suffix: '.md' | '.mdx';
+
+  // 需要考虑省略 index 的情况
+  if (fs.existsSync(fullPathPrefix + '.md')) {
+    suffix = '.md';
+  } else if (fs.existsSync(fullPathPrefix + '.mdx')) {
+    suffix = '.mdx';
+  } else if (fs.existsSync(fullPathPrefix + '/index.md')) {
+    suffix = '.md';
+    fullPathPrefix += '/index'
+  } else if (fs.existsSync(fullPathPrefix + '/index.mdx')) {
+    suffix = '.mdx';
+    fullPathPrefix += '/index'
+  } else {
+    throw '无法找' + fullPathPrefix + '对应的源文件';
+  }
 
   const fileContents = fs.readFileSync(fullPathPrefix + suffix, 'utf8')
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents)
+
+  // 文章路径
+  const fileName: string = (pt instanceof Array ? path.join(...pt) : pt) + suffix;
 
   // Combine the data with the pt and contentHtml
   return { pt, fileName, content: matterResult.content, ...(matterResult.data as Matter) }
