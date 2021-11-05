@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { ParsedUrlQuery } from "querystring";
 import RSS from 'rss'
 import { rootTitle } from "../pages/_document";
-import micromark from 'micromark'
+import { micromark } from 'micromark'
 
 
 /**

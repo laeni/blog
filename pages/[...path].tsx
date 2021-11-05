@@ -6,8 +6,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { rootTitle } from "./_document";
 import styles from "./[...path].module.scss"
-import ReactMarkdown from 'react-markdown'
-import { Components } from "react-markdown/src/ast-to-react";
+import ReactMarkdown, { Components } from "react-markdown";
 import PostsBrief from '../components/posts-brief';
 
 const components: Components = {
