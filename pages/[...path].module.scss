@@ -53,7 +53,8 @@
   }
 
   a {
-     text-decoration: underline;
+    @apply break-all; // 强制换行，否则长单词会导致布局混乱
+    text-decoration: underline;
   }
 
   hr {
