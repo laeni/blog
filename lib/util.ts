@@ -173,7 +173,7 @@ export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; local
       pt = pt.slice(0, pt.length - 1);
     }
 
-    return { params: {path: pt } }
+    return { params: { path: pt } }
   })
 }
 
@@ -251,7 +251,7 @@ function readdirSync(basePath: string, childPath: string = '', ignore: string[] 
  * 去除markdown字符串中的markdown标记.
  */
 function removeMdSymbol(txt: string): string {
-  return micromark(txt).replace(/<[^>]+>/g,"")
+  return micromark(txt).replace(/<[^>]+>/g, "")
 }
 
 /**

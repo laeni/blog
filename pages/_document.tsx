@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
           <meta name="og:title" content={rootTitle} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="baidu-site-verification" content="code-5a8bwoW7Pk" />
-          <script src="/font_2464095_8m8uychzspt.js" />
+          <script src="/font_2464095_6irv0kam8oo.js" />
         </Head>
         <body className="antialiased bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-300">
           <Main />
