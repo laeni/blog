@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'antd/dist/antd.css';
+
 .icon {
     width: 1em;
     height: 1em;

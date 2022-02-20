@@ -4,6 +4,8 @@ import React, { PropsWithChildren, ReactElement } from "react";
 import Link from 'next/link';
 import { Heading } from '@vcarl/remark-headings';
 import Slugger from 'github-slugger'
+import { BackTop } from 'antd';
+import { BarsOutlined } from '@ant-design/icons';
 
 interface Props {
   // 轮播
@@ -142,6 +144,22 @@ function toReactNode(tree: HeadTreeItem[]): React.ReactNode {
 export default function Layout({ children, carousel, latestPosts, heading }: PropsWithChildren<Props>) {
   const headTree = heading && toTree(heading);
 
+  /** 页面固定的小部件。 */
+  const fixedWidgets = () => (
+    <>
+      {/* 回到顶部 - 所有版本都显示 */}
+      <BackTop className='bottom-24' />
+      <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
+
+      {/* 目录文章 - 仅仅手机版显示且在文章页显示（有标题时市委文章页面）*/}
+      {heading?.length > 0 && (
+        <div className='fixed bottom-[50px] right-[20px] sm:right-[60px] md:right-[100px] z-10 bg-[rgba(0,0,0,.45)] w-[40px] h-[40px] text-white text-2xl text-center rounded-full'>
+          <BarsOutlined />
+        </div>
+      )}
+    </>
+  )
+
   // 小组件渲染
   const widget: ReactElement = (
     <>
@@ -165,60 +183,65 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
           </ul>
         </div>
       )}
-      {/* 目录(不在头部导航中显示) */}
-      {headTree && (
-        <div className='hidden sm:block'>
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl text-gray-600 dark:text-gray-400 pt-6 pb-2">目录</h2>
+      <div className='relative sm:sticky sm:top-0'>
+        {/* 目录(不在头部导航中显示) */}
+        {headTree && (
+          <div className='hidden sm:block'>
+            <div className="border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl text-gray-600 dark:text-gray-400 pt-6 pb-2">目录</h2>
+            </div>
+            <div className='min-h-[5em] max-h-[calc(100vh-18em)] overflow-hidden hover:overflow-y-auto'>
+              {toReactNode(headTree)}
+            </div>
           </div>
-          {toReactNode(headTree)}
+        )}
+        {/*友情链接*/}
+        <div>
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl text-gray-600 dark:text-gray-400 pt-6 pb-2">友情链接</h2>
+          </div>
+          <ul className="flex flex-wrap justify-evenly text-sm text-gray-600 dark:text-gray-400 pb-2">
+            {links.map(value => (
+              <li key={value.name} className="truncate py-2 px-1">
+                <a href={value.url} target="_blank">
+                  <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
+                    <use xlinkHref="#icon-youqinglianjie" />
+                  </svg>
+                  <span className="pl-1">{value.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-      )}
-      {/*友情链接*/}
-      <div>
-        <div className="border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-xl text-gray-600 dark:text-gray-400 pt-6 pb-2">友情链接</h2>
-        </div>
-        <ul className="flex flex-wrap justify-evenly text-sm text-gray-600 dark:text-gray-400 pb-2">
-          {links.map(value => (
-            <li key={value.name} className="truncate py-2 px-1">
-              <a href={value.url} target="_blank">
-                <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
-                  <use xlinkHref="#icon-youqinglianjie" />
-                </svg>
-                <span className="pl-1">{value.name}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </>
   )
 
   return (
     <>
+      {/* 页面固定的小部件 */}
+      {fixedWidgets()}
+
       <div className="min-h-screen flex flex-col justify-between">
         <div className="w-full">
           <Header widget={widget} />
-          <main className="">
-            <div className="md:container mx-auto">
-              {/* 可选的轮播区域 */}
-              {carousel && (
-                <div className="m-0 sm:px-3 sm:pt-3">{carousel}</div>
-              )}
+          <div className="md:container mx-auto">
+            {/* 可选的轮播区域 */}
+            {carousel && (
+              <div className="m-0 sm:px-3 sm:pt-3">{carousel}</div>
+            )}
 
-              <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
-                {/*左边: 主内容区*/}
-                <div className="flex-grow w-0">
-                  {children}
-                </div>
-                {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
-                <div className="flex-shrink-0 overflow-hidden sm:w-64 md:w-72 lg:w-80 xl:w-96 hidden sm:block pl-2">
-                  {widget}
-                </div>
+            <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
+              {/*左边: 主内容区*/}
+              <div className="flex-grow w-0">
+                {children}
+              </div>
+              {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
+              <div className="flex-shrink-0 sm:w-64 md:w-72 lg:w-80 xl:w-96 hidden sm:block pl-2">
+                {widget}
               </div>
             </div>
-          </main>
+          </div>
         </div>
         <Footer />
       </div>
