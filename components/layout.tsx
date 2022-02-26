@@ -4,7 +4,7 @@ import React, { PropsWithChildren, ReactElement } from "react";
 import Link from 'next/link';
 import { Heading } from '@vcarl/remark-headings';
 import Slugger from 'github-slugger'
-import { BackTop } from 'antd';
+import { BackTop, message } from 'antd';
 import { BarsOutlined } from '@ant-design/icons';
 
 interface Props {
@@ -148,12 +148,15 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
   const fixedWidgets = () => (
     <>
       {/* 回到顶部 - 所有版本都显示 */}
-      <BackTop className='bottom-24' />
+      <BackTop className='bottom-28 sm:bottom-[50px]' />
       <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
 
       {/* 目录文章 - 仅仅手机版显示且在文章页显示（有标题时市委文章页面）*/}
       {heading?.length > 0 && (
-        <div className='fixed bottom-[50px] right-[20px] sm:right-[60px] md:right-[100px] z-10 bg-[rgba(0,0,0,.45)] w-[40px] h-[40px] text-white text-2xl text-center rounded-full'>
+        <div
+          className='block sm:hidden fixed bottom-[50px] right-[20px] sm:right-[60px] md:right-[100px] z-10 bg-[rgba(0,0,0,.45)] w-[40px] h-[40px] text-white text-2xl text-center rounded-full'
+          onClick={() => message.warn("手机版目录尚未失效，敬请期待！")}
+        >
           <BarsOutlined />
         </div>
       )}
