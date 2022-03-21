@@ -24,7 +24,7 @@ interface State {
  * 通过逐隐效果实现的轮播组件。
  */
 export default class Carousel extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { showIndex: 0 }
   }
