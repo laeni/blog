@@ -274,7 +274,8 @@ export function genRss(matters: PostsMatter[]) {
     feed.item({
       title: posts.title,
       description: posts.description,
-      url: posts.pt,
+      // 这里的pt一定为string
+      url: posts.pt as string,
       author: posts.author,
       date: posts.date,
       categories: tags
