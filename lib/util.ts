@@ -43,6 +43,13 @@ export interface Matter {
    * TODO 暂未实现
    */
   comments?: string;
+
+  /**
+   * 是否隐藏.
+   * 防止部分还为完成的文章不小心提交后对外展示.
+   * 默认: false
+   */
+  hide?: boolean;
 }
 
 export interface PostsMatter extends Matter {
@@ -83,23 +90,27 @@ function getAllPostsData(): CompletePosts[] {
 
   // 读取文章路径下的所有文章路径(默认不包含README.md)
   const fileNames = readdirSync(contentDir)
-  const allPostsData: CompletePosts[] = fileNames.map(fileName => {
-    // Remove ".md" from file name to get pt
-    let pt = fileName.replace(/\.md[x]?$/, '');
-    // 去除 index 结尾的路径
-    if (pt.endsWith('index')) {
-      pt = pt.slice(0, pt.length - ('index'.length + 1));
-    }
+  const allPostsData: CompletePosts[] = fileNames
+    // 根据文件名加载并解析文章
+    .map(fileName => {
+      // Remove ".md" from file name to get pt
+      let pt = fileName.replace(/\.md[x]?$/, '');
+      // 去除 index 结尾的路径
+      if (pt.endsWith('index')) {
+        pt = pt.slice(0, pt.length - ('index'.length + 1));
+      }
 
-    //读取markdown文件为字符串
-    const fileContents = fs.readFileSync(path.join(contentDir, fileName), 'utf8')
+      //读取markdown文件为字符串
+      const fileContents = fs.readFileSync(path.join(contentDir, fileName), 'utf8')
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents)
+      // Use gray-matter to parse the post metadata section
+      const matterResult = matter(fileContents)
 
-    // Combine the data with the pt
-    return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
-  })
+      // Combine the data with the pt
+      return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
+    })
+    // 不显示隐藏的文章
+    .filter(it => !it.hide)
   // 如果 description 为空,则尝试获取第一段作为 description
   allPostsData.forEach(value => {
     const { description, content } = value;
