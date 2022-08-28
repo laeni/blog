@@ -45,11 +45,11 @@ export default function Home({ allPostsData, latestPosts }) {
                 </div>
                 {/*摘要*/}
                 <div className={`${styles.content} break-all text-justify pt-2 leading-normal text-sm text-gray-500 dark:text-gray-500`}
-                     dangerouslySetInnerHTML={{__html: description || content}}
+                  dangerouslySetInnerHTML={{ __html: description || content }}
                 />
                 {/*文章其他信息*/}
                 <PostsBrief author={author} date={date} updated={updated}
-                            className="text-xs text-gray-500 flex py-1"
+                  className="text-xs text-gray-500 flex py-1"
                 />
               </li>
             ))}

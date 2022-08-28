@@ -80,9 +80,7 @@ let pathList: string[] | null = null;
 // 所有文章数据
 let posts: CompletePosts[] | null = null;
 
-/**
- * 获取全部文章数据.
- */
+/** 获取全部文章数据. */
 function getAllPostsData(): CompletePosts[] {
   if (posts) {
     return posts;
@@ -103,14 +101,19 @@ function getAllPostsData(): CompletePosts[] {
       //读取markdown文件为字符串
       const fileContents = fs.readFileSync(path.join(contentDir, fileName), 'utf8')
 
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents)
-
-      // Combine the data with the pt
-      return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
+      try {
+        // Use gray-matter to parse the post metadata section
+        const matterResult = matter(fileContents);
+        // Combine the data with the pt
+        return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
+      } catch {
+        console.warn('解析 matter 出错，将忽略该md文章！path:', path.join(contentDir, fileName));
+        return null;
+      }
     })
-    // 不显示隐藏的文章
-    .filter(it => !it.hide)
+    // 不显示刻意隐藏以及没有标题（没有标题的一般为草稿）的文章
+    .filter(it => it && !it.hide && it.title);
+
   // 如果 description 为空,则尝试获取第一段作为 description
   allPostsData.forEach(value => {
     const { description, content } = value;
@@ -170,22 +173,13 @@ export function getLatestPostsTitle(size = 10): { title: string; path: string }[
   return titles;
 }
 
-/**
- * 获取所有文章的路径.
- */
+/** 获取所有文章的路径. */
 export function getAllPostPath(): Array<string | { params: ParsedUrlQuery; locale?: string }> {
-  const fileNames = readdirSync(contentDir)
-  return fileNames.map(fileName => {
-    // 原始文章路径
-    let pt = fileName.replace(/\.md$/, '').split(path.sep);
-
-    // 去除 index 结尾的路径
-    if (pt[pt.length - 1] === 'index') {
-      pt = pt.slice(0, pt.length - 1);
-    }
-
+  return getAllPostsData().map(data => {
+    // 原始文章路径（这里必须返回数组）
+    const pt = typeof data.pt === 'string' ? data.pt.split(path.sep) : data.pt;
     return { params: { path: pt } }
-  })
+  });
 }
 
 /**

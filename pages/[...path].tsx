@@ -76,7 +76,7 @@ export default function Post({ postData, latestPosts, headings }: { postData: Co
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostPath()
+  const paths = getAllPostPath();
   return {
     paths,
     fallback: false
