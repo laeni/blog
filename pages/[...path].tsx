@@ -43,7 +43,7 @@ export default function Post({ postData, latestPosts, headings }: { postData: Co
   return (
     <Layout heading={headings} latestPosts={latestPosts}>
       <Head>
-        <title>{postData.title} | {rootTitle}</title>
+        <title>{`${postData.title} | ${rootTitle}`}</title>
       </Head>
       <article>
         <div className="p-2 grid">

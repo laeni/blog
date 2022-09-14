@@ -1,11 +1,12 @@
-import Header from './header'
-import Footer from "./footer";
-import React, { PropsWithChildren, ReactElement } from "react";
-import Link from 'next/link';
-import { Heading } from '@vcarl/remark-headings';
-import Slugger from 'github-slugger'
-import { BackTop, message } from 'antd';
 import { BarsOutlined } from '@ant-design/icons';
+import { Heading } from '@vcarl/remark-headings';
+import { useBoolean } from 'ahooks';
+import { BackTop, Modal } from 'antd';
+import Slugger from 'github-slugger';
+import Link from 'next/link';
+import React, { PropsWithChildren, ReactElement, useEffect } from "react";
+import Footer from "./footer";
+import Header from './header';
 
 interface Props {
   // 轮播
@@ -19,7 +20,7 @@ interface Props {
 // 友链
 const links = [
   { name: 'React', url: 'https://zh-hans.reactjs.org/' },
-  { name: 'Vue', url: 'https://v3.vuejs.org/' },
+  { name: 'Vue', url: 'https://vuejs.org/' },
   // {name: 'Angular', url: 'https://angular.cn/'},
   { name: 'Next.js', url: 'https://nextjs.org/' },
   { name: 'UmiJS', url: 'https://umijs.org/zh-CN' },
@@ -142,26 +143,15 @@ function toReactNode(tree: HeadTreeItem[]): React.ReactNode {
 }
 
 export default function Layout({ children, carousel, latestPosts, heading }: PropsWithChildren<Props>) {
+  // 目录（Mdodel）打开状态
+  const [isDirectoryOpen, { setTrue: openDirectory, setFalse: closeDirectory }] = useBoolean(false);
+  // 监听当点击目录时关闭目录（一般点击目录猫点时会滚动）
+  useEffect(() => {
+    document.addEventListener('scroll', closeDirectory);
+    return () => document.removeEventListener('scroll', closeDirectory);
+  });
+
   const headTree = heading && toTree(heading);
-
-  /** 页面固定的小部件。 */
-  const fixedWidgets = () => (
-    <>
-      {/* 回到顶部 - 所有版本都显示 */}
-      <BackTop className='bottom-28 sm:bottom-[50px]' />
-      <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
-
-      {/* 目录文章 - 仅仅手机版显示且在文章页显示（有标题时市委文章页面）*/}
-      {heading?.length > 0 && (
-        <div
-          className='block sm:hidden fixed bottom-[50px] right-[20px] sm:right-[60px] md:right-[100px] z-10 bg-[rgba(0,0,0,.45)] w-[40px] h-[40px] text-white text-2xl text-center rounded-full'
-          onClick={() => message.warn("手机版目录尚未失效，敬请期待！")}
-        >
-          <BarsOutlined />
-        </div>
-      )}
-    </>
-  )
 
   // 小组件渲染
   const widget: ReactElement = (
@@ -222,8 +212,36 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
 
   return (
     <>
-      {/* 页面固定的小部件 */}
-      {fixedWidgets()}
+      {/* 页面固定的小部件 - 返回顶部 / 手机版目录 */}
+      <>
+        {/* 回到顶部 - 所有版本都显示 */}
+        <BackTop className='bottom-28 sm:bottom-[50px]' />
+        <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
+
+        {/* 手机版目录文章 - 仅在文章页显示（有标题时为文章页面）*/}
+        {heading?.length > 0 && (
+          <>
+            <div
+              className='block sm:hidden fixed bottom-[50px] right-[20px] sm:right-[60px] md:right-[100px] z-10 bg-[rgba(0,0,0,.45)] w-[40px] h-[40px] text-white text-2xl text-center rounded-full'
+              onClick={openDirectory}
+            >
+              <BarsOutlined />
+            </div>
+            <Modal footer={null} centered open={isDirectoryOpen} destroyOnClose onCancel={closeDirectory}>
+              {headTree && (
+                <>
+                  <div className="border-b border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl text-gray-600 dark:text-gray-400 pb-2">目录</h2>
+                  </div>
+                  <div className='min-h-[5em] max-h-[calc(100vh-25em)] overflow-y-auto'>
+                    {toReactNode(headTree)}
+                  </div>
+                </>
+              )}
+            </Modal>
+          </>
+        )}
+      </>
 
       <div className="min-h-screen flex flex-col justify-between">
         <div className="w-full">
