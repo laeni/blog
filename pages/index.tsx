@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import { genRss, getLatestPostsTitle, getSortedPostsData } from '../lib/util'
+import { genRss, getLatestPostsTitle, getSortedIndexPostsData } from '../lib/util'
 import Link from 'next/link'
 import { GetStaticProps } from "next";
 import { rootTitle } from "./_document";
@@ -23,7 +23,7 @@ const carouselData = [
   },
 ]
 
-export default function Home({ allPostsData, latestPosts }) {
+export default function Home({ indexPostsData, latestPosts }) {
   // 轮播
   const carousel = <Carousel data={carouselData} />
 
@@ -35,7 +35,7 @@ export default function Home({ allPostsData, latestPosts }) {
       <Layout carousel={carousel} latestPosts={latestPosts}>
         <section>
           <ul className="pb-2">
-            {allPostsData.map(({ pt, title, author, date, updated, description, content }) => (
+            {indexPostsData.map(({ pt, title, author, date, updated, description, content }) => (
               <li key={pt} className={`py-3 px-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800`}>
                 {/*标题*/}
                 <div className="text-lg text-gray-600 dark:text-gray-400 truncate">
@@ -62,14 +62,14 @@ export default function Home({ allPostsData, latestPosts }) {
 
 export const getStaticProps: GetStaticProps = async () => {
   // 获取所有文章数据
-  const allPostsData = getSortedPostsData();
+  const indexPostsData = getSortedIndexPostsData();
   // 获取最新文章标题
   const latestPosts = getLatestPostsTitle();
 
   // 生成 RSS 文件
-  genRss(allPostsData)
+  genRss(indexPostsData)
 
   return {
-    props: { allPostsData, latestPosts }
+    props: { indexPostsData, latestPosts }
   }
 }

@@ -7,7 +7,7 @@ export default function Home({ }) {
   return (
     <>
       <Head>
-        <title>关于我 | {rootTitle}</title>
+        <title>{`关于我 | ${rootTitle}`}</title>
       </Head>
       <Layout>
         <section>

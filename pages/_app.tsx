@@ -1,15 +1,16 @@
-import './globals.css';
 import { AppProps } from 'next/app';
+import { WithRouterProps } from 'next/dist/client/with-router';
 import Head from 'next/head';
 import { withRouter } from 'next/router';
 import NProgress from "nprogress";
+import { useEffect, useState } from 'react';
 import '../lib/nprogress.css';
-import React from 'react';
+import './globals.css';
 
-export default withRouter(class App extends React.Component<AppProps, any> {
-  componentDidMount() {
-    const { router } = this.props;
+export default withRouter(function App({ Component, pageProps, router }: WithRouterProps & AppProps) {
+  const [bdScriptSrc, setBdScriptSrc] = useState<string>();
 
+  useEffect(() => {
     // 导航进度条
     if (router?.events?.on) {
       router.events.on('routeChangeStart', NProgress.start);
@@ -17,28 +18,24 @@ export default withRouter(class App extends React.Component<AppProps, any> {
       router.events.on('routeChangeError', NProgress.done);
     }
     // 百度自动提交
-    (function(){
-      const bp = document.createElement('script');
-      if (window.location.protocol.split(':')[0] === 'https'){
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-      } else{
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    setBdScriptSrc(window.location.protocol.split(':')[0] === 'https' ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js');
+
+    return () => {
+      if (router?.events?.off) {
+        router.events.off('routeChangeStart', NProgress.start);
+        router.events.off('routeChangeComplete', NProgress.done);
+        router.events.off('routeChangeError', NProgress.done);
       }
-      const s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  }
+    }
+  }, []);
 
-  render() {
-    const { Component, pageProps } = this.props;
-
-    return (
-      <>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        </Head>
-        <Component {...pageProps} />
-      </>
-    )
-  }
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        {bdScriptSrc && <script src={bdScriptSrc} />}
+      </Head>
+      <Component {...pageProps} />
+    </>
+  )
 })

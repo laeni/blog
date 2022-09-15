@@ -133,12 +133,13 @@ function getAllPostsData(): CompletePosts[] {
   return posts = allPostsData;
 }
 
-export function getSortedPostsData(): CompletePosts[] {
+/** 获取经过排序的首页文章 */
+export function getSortedIndexPostsData(): CompletePosts[] {
   return getAllPostsData()
     // 对于首页,只展示有 description 的文章
     .filter(({ description }) => description)
-    // 根据创建时间排序
-    .sort((a, b) => a.date < b.date ? 1 : -1);
+    // 根据修改时间倒序
+    .sort((a, b) => a.updated < b.updated ? 1 : -1);
 }
 
 /**
