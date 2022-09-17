@@ -160,7 +160,7 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
       {latestPosts?.length > 0 && (
         <div>
           <div className="border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl text-gray-600 dark:text-gray-400 py-2">最新文章</h2>
+            <h2 className="text-xl text-gray-600 dark:text-gray-400 py-2">最新动态</h2>
           </div>
           <ul className="text-sm text-gray-600 dark:text-gray-400 pb-2">
             {latestPosts.map(value => (

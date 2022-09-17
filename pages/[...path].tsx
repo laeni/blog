@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData: CompletePosts = await getPostData(params.path);
   // 获取最新文章的标题
   const latestPosts = getLatestPostsTitle();
-  // 根据Markdown文档提取出所有标题
+  // 根据Markdown文档提取出所有标题(用于目录生成)
   const headings = (await unified()
     .use(remarkParse)
     .use(remarkStringify)

@@ -81,7 +81,7 @@ let pathList: string[] | null = null;
 let posts: CompletePosts[] | null = null;
 
 /** 获取全部文章数据. */
-function getAllPostsData(): CompletePosts[] {
+export function getAllPostsData(): CompletePosts[] {
   if (posts) {
     return posts;
   }
@@ -143,7 +143,7 @@ export function getSortedIndexPostsData(): CompletePosts[] {
 }
 
 /**
- * 最多获取 size 篇最新的文章标题和地址
+ * 最多获取 size 篇最新的文章标题和地址（用于最新动态）
  * @param size 最多返回的标题数量,默认为10
  */
 export function getLatestPostsTitle(size = 10): { title: string; path: string }[] {

@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import Head from 'next/head';
 import { withRouter } from 'next/router';
+import Script from 'next/script';
 import NProgress from "nprogress";
 import { useEffect, useState } from 'react';
 import '../lib/nprogress.css';
@@ -33,7 +34,7 @@ export default withRouter(function App({ Component, pageProps, router }: WithRou
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        {bdScriptSrc && <script src={bdScriptSrc} />}
+        {bdScriptSrc && <Script src={bdScriptSrc} />}
       </Head>
       <Component {...pageProps} />
     </>

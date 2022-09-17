@@ -63,7 +63,7 @@ export default function Home({ indexPostsData, latestPosts }) {
 export const getStaticProps: GetStaticProps = async () => {
   // 获取所有文章数据
   const indexPostsData = getSortedIndexPostsData();
-  // 获取最新文章标题
+  // 获取最新文章标题（最新动态）
   const latestPosts = getLatestPostsTitle();
 
   // 生成 RSS 文件

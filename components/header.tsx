@@ -56,13 +56,13 @@ export default function Header({ widget }: Props) {
   }, []);
 
   const menus = [
-    // { name: "文章", path: "/posts" },
+    /* // { name: "文章", path: "/posts" }, */
     // { name: "随笔", path: "/essay" },
     // { name: "学习", path: "/learn" },
-    // { name: "编程", path: "/program" },
+    // { name: "笔记", path: "/note" },
     // { name: "摄影", path: "/photo" },
-    // { name: "美图", path: "/picture" },
-    // { name: "归档", path: "/archive" },
+    /* // { name: "美图", path: "/picture" }, */
+    { name: "归档", path: "/archive" },
     { name: "关于", path: "/about" },
   ]
 
@@ -75,10 +75,12 @@ export default function Header({ widget }: Props) {
             <Link href="/">
               <a><img src="/img/logo.svg" alt="logo" width="40" height="40" /></a>
             </Link>
-            <ul className="hidden sm:flex pl-6 lg:pl-10 xl:pl-12">
+            <ul className="hidden sm:flex pl-6 lg:pl-10 xl:pl-12 text-base lg:text-lg">
               {menus.map((menu, i) => (
                 <li key={i} className="px-1.5 lg:px-5 xl:px-7">
-                  <a href={menu.path} className={router.asPath.startsWith(menu.path) ? styles.select : ''}>{menu.name}</a>
+                  <Link href={menu.path}>
+                    <span className={router.asPath.startsWith(menu.path) ? styles.select : ''}>{menu.name}</span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -89,7 +91,7 @@ export default function Header({ widget }: Props) {
             {/* github */}
             <div className="p-1 mx-1">
               <a href="https://github.com/laeni/blog" target="_blank">
-                <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
+                <svg className="icon text-gray-500 dark:text-gray-400 text-base lg:text-lg" aria-hidden="true">
                   <use xlinkHref="#icon-github" />
                 </svg>
               </a>
@@ -98,7 +100,7 @@ export default function Header({ widget }: Props) {
             <div className="block sm:hidden">
               {/*菜单按钮*/}
               <div className={`${styles.sm_menu} w-5 h-4 flex flex-wrap content-between`}
-                   onClick={negateDropDownState}>
+                onClick={negateDropDownState}>
                 <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div1 : ''}`} />
                 <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div2 : ''}`} />
                 <div className={`bg-gray-500 dark:bg-gray-400 ${click ? styles.div3 : ''}`} />
