@@ -1,7 +1,8 @@
 import Link from "next/link";
-import styles from "../components/header.module.scss"
-import React, { ReactElement, useEffect, useState } from 'react';
-import { NextRouter, useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router';
+import { ReactElement, useEffect, useState } from 'react';
+import styles from "../components/header.module.scss";
+import ShowSize from "./show-size";
 
 interface Props {
   /**
@@ -70,6 +71,8 @@ export default function Header({ widget }: Props) {
     <div className="flex-none relative z-50">
       <div className="leading-3 bg-white dark:bg-black ring-1 ring-gray-900 ring-opacity-5 shadow-sm py-2">
         <div className="md:container md:mx-auto h-12 lg:h-14 flex justify-between items-center px-3">
+          {/* 显示屏幕尺寸 - 仅开发环境生效 */}
+          <ShowSize />
           {/*左边*/}
           <div className="flex items-center">
             <Link href="/">

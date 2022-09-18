@@ -24,7 +24,7 @@ export default function PostsBrief(props: PropsWithChildren<Props>) {
           <svg className="icon" aria-hidden="true">
             <use xlinkHref="#icon-zuozhe" />
           </svg>
-          <span className="pl-1">{author}</span>
+          <span className="pl-0.5 lg:pl-1">{author}</span>
         </div>
       )}
       {/*更新时间(或创建时间)*/}
@@ -35,10 +35,10 @@ export default function PostsBrief(props: PropsWithChildren<Props>) {
               <use xlinkHref="#icon-shijian" />
             </svg>
             {
-              (updated === date) ? (
-                <span className="pl-1">{updated || date}</span>
+              (updated === date || !updated) ? (
+                <span className="pl-0.5 lg:pl-1">{updated || date}</span>
               ) : (
-                <span className="pl-1">{date} ~ {updated}</span>
+                <span className="pl-0.5 lg:pl-1">{date}<span className='px-[1px] lg:px-[2px]'>~</span>{updated}</span>
               )
             }
           </div>
