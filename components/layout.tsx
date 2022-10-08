@@ -30,6 +30,7 @@ const links = [
   { name: 'Ant Design', url: 'https://ant.design/' },
   { name: '阿里巴巴矢量图标库', url: 'https://www.iconfont.cn/' },
   { name: '叶子个人博客', url: 'https://www.yezismile.com/' },
+  { name: '在线工具', url: 'https://util.laeni.cn/' },
 ];
 
 interface HeadTreeItem {
