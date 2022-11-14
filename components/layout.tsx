@@ -166,12 +166,12 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
           <ul className="text-sm text-gray-600 dark:text-gray-400 pb-2">
             {latestPosts.map(value => (
               <li key={value.path} className="truncate py-2">
-                <Link href={`/${value.path}`}><a>
+                <Link href={`/${value.path}`}>
                   <svg className="icon text-gray-500 dark:text-gray-400" aria-hidden="true">
                     <use xlinkHref="#icon-wenzhang" />
                   </svg>
                   <span className="pl-1">{value.title}</span>
-                </a></Link>
+                </Link>
               </li>
             ))}
           </ul>

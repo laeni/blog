@@ -63,7 +63,8 @@ export default function Header({ widget }: Props) {
     // { name: "笔记", path: "/note" },
     // { name: "摄影", path: "/photo" },
     /* // { name: "美图", path: "/picture" }, */
-    { name: "归档", path: "/archive" },
+    { name: "标签", path: "/tag" },     // 将文章中所有拥有相同标签的文字组合在一起
+    { name: "归档", path: "/archive" }, // 按照创建时间将所有有标题的文章依次列出来
     { name: "关于", path: "/about" },
   ]
 
@@ -76,7 +77,7 @@ export default function Header({ widget }: Props) {
           {/*左边*/}
           <div className="flex items-center">
             <Link href="/">
-              <a><img src="/img/logo.svg" alt="logo" width="40" height="40" /></a>
+              <img src="/img/logo.svg" alt="logo" width="40" height="40" />
             </Link>
             <ul className="hidden sm:flex pl-6 lg:pl-10 xl:pl-12 text-base lg:text-lg">
               {menus.map((menu, i) => (

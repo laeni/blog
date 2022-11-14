@@ -39,9 +39,7 @@ export default function Home({ indexPostsData, latestPosts }) {
               <li key={pt} className={`py-3 px-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800`}>
                 {/*标题*/}
                 <div className="text-lg text-gray-600 dark:text-gray-400 truncate">
-                  <Link href={`/${pt}`}>
-                    <a className="font-bold">{title}</a>
-                  </Link>
+                  <Link href={`/${pt}`} className="font-bold">{title}</Link>
                 </div>
                 {/*摘要*/}
                 <div className={`${styles.content} break-all text-justify pt-2 leading-normal text-sm text-gray-500 dark:text-gray-500`}

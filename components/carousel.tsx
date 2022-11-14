@@ -80,7 +80,7 @@ export default class Carousel extends React.Component<Props, State> {
                     <a href={url} target="_blank"><img src={img} className="object-cover w-full h-full" alt="轮播图" /></a>
                   ) : (
                     <Link href={url}>
-                      <a><img src={img} className="object-cover w-full h-full" alt="轮播图" /></a>
+                      <img src={img} className="object-cover w-full h-full" alt="轮播图" />
                     </Link>
                   )}
                 </li>

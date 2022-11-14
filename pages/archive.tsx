@@ -61,9 +61,7 @@ export default function ArchivePage({ archivess }: { archivess: Archivess }) {
                                 <div className="text-base">{post.description}</div> */}
                                 {/*标题*/}
                                 <div className="text-base lg:text-lg text-gray-600 dark:text-gray-400 truncate">
-                                  <Link href={`/${post.pt}`}>
-                                    <a className="font-bold">{post.title}</a>
-                                  </Link>
+                                  <Link href={`/${post.pt}`} className="font-bold">{post.title}</Link>
                                 </div>
                                 {/*摘要*/}
                                 <div className={`${styles.content} break-all text-justify pt-1 leading-normal text-sm text-gray-500 dark:text-gray-500`}
