@@ -82,8 +82,8 @@ export default function Header({ widget }: Props) {
             <ul className="hidden sm:flex pl-6 lg:pl-10 xl:pl-12 text-base lg:text-lg">
               {menus.map((menu, i) => (
                 <li key={i} className="px-1.5 lg:px-5 xl:px-7">
-                  <Link href={menu.path}>
-                    <a className={router.asPath.startsWith(menu.path) ? styles.select : ''}>{menu.name}</a>
+                  <Link href={menu.path} className={router.asPath.startsWith(menu.path) ? styles.select : ''}>
+                    {menu.name}
                   </Link>
                 </li>
               ))}

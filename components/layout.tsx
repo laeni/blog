@@ -58,63 +58,48 @@ function toTree(heading: Heading[]): HeadTreeItem[] {
 
   const headTree: HeadTreeItem[] = [];
   // 最近添加的一个元素（用于非一级标题转换时使用）
-  let recentHeadTreeItem: HeadTreeItem;
+  let currentNode: HeadTreeItem = { depth: 1 };
   for (const item of headingTmp) {
     // 一级标题
     if (item.depth === 1) {
       const treeItem: HeadTreeItem = { ...item };
       headTree.push(treeItem);
-      recentHeadTreeItem = treeItem;
+      currentNode = treeItem;
       continue;
-    }
-
-    // 考虑一开始就不是一级标题的情况
-    if (!recentHeadTreeItem) {
-      recentHeadTreeItem = { depth: 1 }
     }
 
     // 与上一个同级
-    if (item.depth === recentHeadTreeItem.depth) {
-      const treeItem: HeadTreeItem = { ...item, prent: recentHeadTreeItem.prent };
-      recentHeadTreeItem.prent.children.push(treeItem);
-      recentHeadTreeItem = treeItem;
-      continue;
-    }
-
-    // 刚好为上一级标题的直属子标题
-    if (item.depth === recentHeadTreeItem.depth + 1) {
-      if (!recentHeadTreeItem.children) {
-        recentHeadTreeItem.children = [];
-      }
-      const treeItem: HeadTreeItem = { ...item, prent: recentHeadTreeItem };
-      recentHeadTreeItem.children.push(treeItem);
-      recentHeadTreeItem = treeItem;
+    if (item.depth === currentNode.depth) {
+      const treeItem: HeadTreeItem = { ...item, prent: currentNode.prent };
+      currentNode.prent.children.push(treeItem);
+      currentNode = treeItem;
       continue;
     }
 
     // 向下跳级
-    if (item.depth > recentHeadTreeItem.depth) {
-      for (let i = item.depth - recentHeadTreeItem.depth - 1; i <= 0; i--) {
-        if (!recentHeadTreeItem.children) {
-          recentHeadTreeItem.children = [];
+    if (item.depth > currentNode.depth) {
+      while (currentNode.depth < item.depth) {
+        if (!currentNode.children) {
+          currentNode.children = [];
         }
-        const treeItem: HeadTreeItem = { depth: item.depth - i, prent: recentHeadTreeItem, children: [] };
-        recentHeadTreeItem.children.push(treeItem);
-        recentHeadTreeItem = treeItem;
+        let treeItem: HeadTreeItem;
+        if (currentNode.depth === item.depth - 1) {
+          treeItem = { ...item, depth: currentNode.depth + 1, prent: currentNode, children: [] };
+        } else {
+          treeItem = { depth: currentNode.depth + 1, prent: currentNode, children: [] };
+        }
+        currentNode.children.push(treeItem);
+        currentNode = treeItem;
       }
-      const treeItem: HeadTreeItem = { ...item, prent: recentHeadTreeItem };
-      recentHeadTreeItem.children.push(treeItem);
-      recentHeadTreeItem = treeItem;
     }
     // 向上跳级
     else {
-      const sum = recentHeadTreeItem.depth - item.depth + 1;
-      for (let i = 0; i < sum; i++) {
-        recentHeadTreeItem = recentHeadTreeItem.prent;
+      while (currentNode.depth !== item.depth) {
+        currentNode = currentNode.prent;
       }
-      const treeItem: HeadTreeItem = { ...item, prent: recentHeadTreeItem };
-      recentHeadTreeItem.children.push(treeItem);
-      recentHeadTreeItem = treeItem;
+      const treeItem: HeadTreeItem = { ...item, prent: currentNode.prent };
+      currentNode.prent.children.push(treeItem);
+      currentNode = treeItem;
     }
   }
   return headTree;

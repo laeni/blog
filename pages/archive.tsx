@@ -118,7 +118,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         updateTime: post.updated || null
       });
     } catch (e) {
-      console.warn('处理文章失败：', post);
+      console.warn('处理文章失败：', post, e);
     }
   }
 
