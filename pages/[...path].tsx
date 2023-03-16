@@ -40,7 +40,7 @@ const components: Components = {
 
 export default function Post({ postData, latestPosts, headings }: { postData: CompletePosts, latestPosts: any, headings: Heading[] }) {
   // 该文章在github上的路径
-  const githubPage = `https://github.com/laeni/blog-content/blob/master/${postData.fileName}`
+  const githubPage = `https://github.com/laeni/blog-content/blob/main/${postData.fileName}`
 
   return (
     <Layout heading={headings} latestPosts={latestPosts}>
