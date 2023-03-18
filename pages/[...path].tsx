@@ -38,6 +38,23 @@ const components: Components = {
   }
 }
 
+// 自定义 unified 插件，将 table 放在 <div class='overflow-x-auto' /> 标签内，防止在移动端由于表格内容过多破坏整体布局
+function fixTable() {
+  return (tree: any) => {
+    for (let i = 0; i < tree.children.length; i++) {
+      const node = tree.children[i];
+      if (node.type === 'element' && node.tagName === 'table') {
+        tree.children[i] = {
+          type: 'element',
+          tagName: 'div',
+          properties: { class: 'overflow-x-auto' },
+          children: [node]
+        }
+      }
+    }
+  }
+}
+
 export default function Post({ postData, latestPosts, headings }: { postData: CompletePosts, latestPosts: any, headings: Heading[] }) {
   // 该文章在github上的路径
   const githubPage = `https://github.com/laeni/blog-content/blob/main/${postData.fileName}`
@@ -60,7 +77,7 @@ export default function Post({ postData, latestPosts, headings }: { postData: Co
         <div className={`${styles.content} px-3 pb-3 text-gray-600 dark:text-gray-400 text-justify`}>
           <ReactMarkdown
             remarkPlugins={[gfm]}
-            rehypePlugins={[rehypeSlug]}
+            rehypePlugins={[rehypeSlug, fixTable]}
             components={components}
             children={postData.content}
             skipHtml

@@ -75,6 +75,12 @@
     border-left: 4px solid #dfe2e5;
   }
 
+  @media (prefers-color-scheme: dark) {
+    blockquote {
+      border-color: #666666;
+    }
+  }
+
   ol,
   ul {
     list-style: inherit;
@@ -115,7 +121,6 @@
     color: rgba(0, 0, 0, 0.88);
     font-size: 14px;
     line-height: 1.5714285714285714;
-    margin-bottom: .75rem;
   }
 
   table tr:first-child *:first-child {
