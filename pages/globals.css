@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'antd/dist/antd.css';
+@import 'antd/dist/reset.css';
 
 .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-    display: inline;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  display: inline;
 }
 
 .global-scrollblock {
-    position: fixed;
-    width: 100%;
-    overflow-y: hidden;
+  position: fixed;
+  width: 100%;
+  overflow-y: hidden;
 }

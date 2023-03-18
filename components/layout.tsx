@@ -1,7 +1,7 @@
 import { BarsOutlined } from '@ant-design/icons';
 import { Heading } from '@vcarl/remark-headings';
 import { useBoolean } from 'ahooks';
-import { BackTop, Modal } from 'antd';
+import { FloatButton, Modal } from 'antd';
 import Slugger from 'github-slugger';
 import Link from 'next/link';
 import React, { PropsWithChildren, ReactElement, useEffect } from "react";
@@ -201,7 +201,7 @@ export default function Layout({ children, carousel, latestPosts, heading }: Pro
       {/* 页面固定的小部件 - 返回顶部 / 手机版目录 */}
       <>
         {/* 回到顶部 - 所有版本都显示 */}
-        <BackTop className='bottom-28 sm:bottom-[50px]' />
+        <FloatButton.BackTop className='bottom-28 sm:bottom-[50px]' />
         <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
 
         {/* 手机版目录文章 - 仅在文章页显示（有标题时为文章页面）*/}
