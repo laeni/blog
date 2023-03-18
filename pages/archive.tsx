@@ -20,7 +20,7 @@ export default function ArchivePage({ archivess }: { archivess: Archivess }) {
           <div className="w-0">
             <div className="h-full w-0.5 bg-blue-500 ml-[92px] lg:ml-28 xl:ml-32">
               <div className="text-blue-500 w-0">
-                <div className="bg-gray-50 -ml-2 lg:-ml-[11px] xl:-ml-[14px] w-[23px] lg:w-[26px] xl:w-[33px] h-[23px] lg:h-[26px] xl:h-[33px] mt-1 lg:mt-0">
+                <div className="bg-gray-50 dark:bg-gray-900 -ml-2 lg:-ml-[11px] xl:-ml-[14px] w-[23px] lg:w-[26px] xl:w-[33px] h-[23px] lg:h-[26px] xl:h-[33px] mt-1 lg:mt-0">
                   <FieldTimeOutlined className='text-xl lg:text-2xl xl:text-3xl' />
                 </div>
               </div>
@@ -49,9 +49,9 @@ export default function ArchivePage({ archivess }: { archivess: Archivess }) {
                               <div key={i} className='py-2'>
                                 {/* 时间线 - 子 */}
                                 <div className="absolute scale-75 lg:scale-100 -ml-[29px] lg:-ml-[33px] xl:-ml-12 flex justify-center">
-                                  <div className='h-8 bg-gray-50 flex items-center justify-center'>
+                                  <div className='h-8 bg-gray-50 dark:bg-gray-900 flex items-center justify-center'>
                                     <div className="w-5 h-5 bg-green-500 flex items-center justify-center rounded-full">
-                                      <div className="w-4 h-4 bg-gray-50 flex items-center justify-center rounded-full">
+                                      <div className="w-4 h-4 bg-gray-50 dark:bg-gray-900 flex items-center justify-center rounded-full">
                                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                                       </div>
                                     </div>
