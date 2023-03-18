@@ -107,7 +107,6 @@
   /* #region 表格样式 */
 
   table {
-    table-layout: auto;
     width: 100%;
     text-align: start;
     border-radius: 8px 8px 0 0;
@@ -116,7 +115,7 @@
     color: rgba(0, 0, 0, 0.88);
     font-size: 14px;
     line-height: 1.5714285714285714;
-    list-style: none;
+    margin-bottom: .75rem;
   }
 
   table tr:first-child *:first-child {
@@ -149,6 +148,28 @@
     position: relative;
     padding: 16px 16px;
     overflow-wrap: break-word;
+  }
+
+  // 深色主题
+  @media (prefers-color-scheme: dark) {
+    table {
+      color: rgba(255, 255, 255, 0.85);
+      background: #5252522d;
+    }
+
+    table tr:hover {
+      background: #1d1d1d9c;
+    }
+
+    table tr th {
+      color: rgba(255, 255, 255, 0.85);
+      background: #1d1d1d9c;
+      border-bottom: 1px solid #303030;
+    }
+
+    table tr td {
+      border-bottom: 1px solid #303030;
+    }
   }
 
   /* #endregion */
