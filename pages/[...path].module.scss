@@ -104,6 +104,55 @@
     display: inline;
   }
 
+  /* #region 表格样式 */
+
+  table {
+    table-layout: auto;
+    width: 100%;
+    text-align: start;
+    border-radius: 8px 8px 0 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;
+    line-height: 1.5714285714285714;
+    list-style: none;
+  }
+
+  table tr:first-child *:first-child {
+    border-top-left-radius: 8px;
+  }
+
+  table tr:first-child *:last-child {
+    border-top-right-radius: 8px;
+  }
+
+  table tr:hover {
+    background: #f6f6f6;
+  }
+
+  table tr th {
+    position: relative;
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: 600;
+    text-align: start;
+    background: #f6f6f6;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s ease;
+    padding: 16px 16px;
+    overflow-wrap: break-word;
+  }
+
+  table tr td {
+    transition: background 0.2s, border-color 0.2s;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    padding: 16px 16px;
+    overflow-wrap: break-word;
+  }
+
+  /* #endregion */
+
   // -----------------------------
 
   @media print {
