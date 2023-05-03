@@ -1,10 +1,11 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import dayjs from 'dayjs';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { micromark } from 'micromark';
+import path from 'path';
 import { ParsedUrlQuery } from "querystring";
-import RSS from 'rss'
+import RSS from 'rss';
 import { rootTitle } from "../pages/_document";
-import { micromark } from 'micromark'
 
 
 /**
@@ -105,7 +106,7 @@ export function getAllPostsData(): CompletePosts[] {
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(fileContents);
         // Combine the data with the pt
-        return { pt, fileName, ...(matterResult.data as Matter), content: matterResult.content }
+        return { pt, fileName, ...(handMatter(matterResult.data)), content: matterResult.content }
       } catch {
         console.warn('解析 matter 出错，将忽略该md文章！path:', path.join(contentDir, fileName));
         return null;
@@ -218,7 +219,7 @@ export async function getPostData(pt: string | string[]): Promise<CompletePosts>
   const fileName: string = (pt instanceof Array ? path.join(...pt) : pt) + suffix;
 
   // Combine the data with the pt and contentHtml
-  return { pt, fileName, content: matterResult.content, ...(matterResult.data as Matter) }
+  return { pt, fileName, content: matterResult.content, ...(handMatter(matterResult.data)) }
 }
 
 /**
@@ -290,4 +291,19 @@ export function genRss(matters: PostsMatter[]) {
 
   // 生成xml文件,默认不缩进,如果需要缩进可以使用选项: feed.xml({ indent: true })
   fs.writeFileSync('./public/feed.xml', feed.xml({ indent: true }))
+}
+
+/**
+ * 对 matter() 函数生成的结果进行处理.
+ * 处理内容：
+ *   1. 将时间对象转换为格式化之后的时间字符串
+ */
+function handMatter(data: { [key: string]: any }): Matter {
+  if (typeof data.date === 'object') {
+    data = { ...data, date: dayjs(data.date).format('YYYY-MM-DD') }
+  }
+  if (typeof data.updated === 'object') {
+    data = { ...data, updated: dayjs(data.updated).format('YYYY-MM-DD') }
+  }
+  return data as Matter;
 }
