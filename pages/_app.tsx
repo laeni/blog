@@ -1,3 +1,4 @@
+import { StyleProvider, legacyLogicalPropertiesTransformer } from '@ant-design/cssinjs';
 import { AppProps } from 'next/app';
 import { WithRouterProps } from 'next/dist/client/with-router';
 import Head from 'next/head';
@@ -36,7 +37,9 @@ export default withRouter(function App({ Component, pageProps, router }: WithRou
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         {bdScriptSrc && <Script src={bdScriptSrc} />}
       </Head>
-      <Component {...pageProps} />
+      <StyleProvider hashPriority="high" transformers={[legacyLogicalPropertiesTransformer]}>
+        <Component {...pageProps} />
+      </StyleProvider>
     </>
   )
 })
