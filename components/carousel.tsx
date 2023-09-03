@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import styles from "./carousel.module.scss"
 import Link from "next/link";
@@ -29,7 +31,7 @@ export default class Carousel extends React.Component<Props, State> {
     this.state = { showIndex: 0 }
   }
 
-  interval: NodeJS.Timeout
+  interval: NodeJS.Timeout | undefined
 
   // 下一页
   nextChange = () => {
@@ -48,7 +50,7 @@ export default class Carousel extends React.Component<Props, State> {
     }
   }
   // 跳转到指定索引的轮播页
-  indexChange = index => this.setState({ showIndex: index });
+  indexChange = (index: number) => this.setState({ showIndex: index });
   // 开启定时轮播
   startCarousel = () => this.interval = setInterval(this.nextChange, 5000);
   // 停止定时轮播
