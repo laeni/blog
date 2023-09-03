@@ -10,8 +10,8 @@ import styles from "./page.module.scss";
 /** @see https://nextjs.org/docs/app/building-your-application/optimizing/metadata#static-metadata */
 export const metadata: Metadata = { title: `归档 | ${rootTitle}` }
 
-export default async function ArchivePage() {
-  const archivess = await getArchivess();
+export default function ArchivePage() {
+  const archivess = getArchivess();
   return (
     <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
       {/*左边: 主内容区*/}
@@ -95,12 +95,12 @@ export default async function ArchivePage() {
   )
 }
 
-async function getArchivess() {
+function getArchivess() {
   // 获取全部文章
-  const latestPosts: CompletePosts[] = getAllPostsData();
+  const allPosts: CompletePosts[] = getAllPostsData();
 
   const archivess: Archivess = {};
-  for (const post of latestPosts) {
+  for (const post of allPosts) {
     try {
       // 提取年月
       const createData = (post.date as string).split("-");

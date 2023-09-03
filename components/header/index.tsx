@@ -15,7 +15,7 @@ const menus = [
   /* // { name: "美图", path: "/picture" }, */
   { name: "标签", path: "/tag" },     // 将文章中所有拥有相同标签的文字组合在一起
   { name: "归档", path: "/archive" }, // 按照创建时间将所有有标题的文章依次列出来
-  { name: "关于", path: "/about" },
+  // { name: "关于", path: "/about" },
 ]
 
 /**

@@ -24,9 +24,8 @@ export interface Matter {
   author?: string;
   /**
    * 标签.
-   * 字符串时以 ',' 分隔
    */
-  tags?: string | string[];
+  tags: string[];
   /**
    * 创建时间.
    */
@@ -274,6 +273,11 @@ function handMatter(data: { [key: string]: any }): Matter {
   }
   if (typeof data.updated === 'object') {
     data = { ...data, updated: dayjs(data.updated).format('YYYY-MM-DD') }
+  }
+  if (!data.tags) {
+    data.tags = [];
+  } else if (typeof data.tags === 'string') {
+    data.tags = data.tags.split(',').map(tag => tag.trim());
   }
   return data as Matter;
 }
