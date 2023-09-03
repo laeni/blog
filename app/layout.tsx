@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="zh" className="h-full nprogress-busy">
+    <html lang="zh" className="h-full">
       {/* 百度自动提交 */}
       <Script src="https://zz.bdstatic.com/linksubmit/push.js" />
       <Script src="/font_2464095_6irv0kam8oo.js" />
