@@ -42,14 +42,14 @@ export default async function Post({ params }: Props) {
     <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
       {/*左边: 主内容区*/}
       <div className="flex-grow w-0">
-        <article>
+        <main>
           <div className="p-2 grid">
-            <h1 className={`${styles.title} text-xl text-gray-600 dark:text-gray-300 p-1 max-h-16`}>{postData.title}</h1>
+            <h1 className={`${styles.title} text-3xl font-bold text-gray-600 dark:text-gray-300 p-1 max-h-16`}>{postData.title}</h1>
             {/*文章其他信息*/}
             <PostsBrief author={postData.author} date={postData.date} updated={postData.updated}
-              className="text-xs text-gray-500 dark:text-gray-400 flex py-1"
+              className="text-sm text-gray-500 dark:text-gray-400 flex py-1"
             />
-            <hr className="border-t-2 border-gray-200 dark:border-gray-700 mt-4 mx-1" />
+            <hr className="border-t-2 border-gray-200 dark:border-gray-700 mt-3 mb-2 mx-1" />
           </div>
           {/* Markdown渲染的文章 */}
           <div className={`${styles.content} px-3 pb-3 text-gray-600 dark:text-gray-400 text-justify`}>
@@ -61,7 +61,7 @@ export default async function Post({ params }: Props) {
             <span>发现错误或想为文章做出贡献？ </span>
             <Link href={githubPage} className="text-blue-400 dark:text-blue-500" target="_blank">在 GitHub 上编辑此页面！</Link>
           </div>
-        </article>
+        </main>
       </div>
       {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
       <div className="flex-shrink-0 sm:w-64 md:w-72 lg:w-80 xl:w-96 hidden sm:block pl-2">

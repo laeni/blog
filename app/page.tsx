@@ -39,26 +39,28 @@ export default function IndexPage() {
 
       <div className="flex justify-between py-2 sm:py-3 px-0 sm:px-3 text-gray-800 dark:text-gray-300">
         {/*左边: 主内容区*/}
-        <div className="flex-grow w-0">
+        <main className="flex-grow w-0">
           <ul className="pb-2">
             {indexPostsData.map(({ pt, title, author, date, updated, description, content }) => (
               <li key={pt as string} className={`py-3 px-2 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800`}>
-                {/*标题*/}
-                <div className="text-lg text-gray-600 dark:text-gray-400 truncate">
-                  <Link href={`/${pt}`} className="font-bold">{title}</Link>
-                </div>
-                {/*摘要*/}
-                <div className={`${styles.content} break-all text-justify pt-2 leading-normal text-sm text-gray-500 dark:text-gray-500`}>
-                  {(description || content) && <span dangerouslySetInnerHTML={{ __html: description || content }} />}
-                </div>
-                {/*文章其他信息*/}
-                <PostsBrief author={author} date={date} updated={updated}
-                  className="text-xs text-gray-500 flex py-1"
-                />
+                <article>
+                  {/*标题*/}
+                  <h3 className="text-lg text-gray-600 dark:text-gray-400 truncate">
+                    <Link href={`/${pt}`} className="font-bold">{title}</Link>
+                  </h3>
+                  {/*摘要*/}
+                  <div className={`${styles.content} break-all text-justify pt-2 leading-normal text-sm text-gray-500 dark:text-gray-500`}>
+                    {(description || content) && <span dangerouslySetInnerHTML={{ __html: description || content }} />}
+                  </div>
+                  {/*文章其他信息*/}
+                  <PostsBrief author={author} date={date} updated={updated}
+                    className="text-xs text-gray-500 flex py-1"
+                  />
+                </article>
               </li>
             ))}
           </ul>
-        </div>
+        </main>
         {/*右边: 小组件,当屏幕宽度太小时换到“小屏幕菜单区”显示*/}
         <div className="flex-shrink-0 sm:w-64 md:w-72 lg:w-80 xl:w-96 hidden sm:block pl-2">
           <Widget />
