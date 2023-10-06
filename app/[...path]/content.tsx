@@ -1,33 +1,33 @@
-'use client'
-
-import dynamic from 'next/dynamic'
 import ReactMarkdown, { Components } from "react-markdown"
+import rehypeMathjax from 'rehype-mathjax'
 import rehypeSlug from "rehype-slug"
-import gfm from "remark-gfm"
+import remarkGfm from "remark-gfm"
+import remarkMath from 'remark-math'
+import CodeBlock from '../../components/code-block'
+import StyleClient from '../../components/style-client'
 
 const components: Components = {
-  code({ node, inline, className, children, ...props }) {
-    const match = /language-(\w+)/.exec(className || '')
+  code({ children, node, style, ...props }) {
+    const match = /language-(\w+)/.exec(props.className || '')
 
-    // 删除自动添加的换行
-    children = children.map(value => String(value).replace(/[\n]+$/, ''));
-
-    // 代码块使用动态加载,且服务端不加载,否则其中需要用到window而报错
-    const DynamicCodeBlock = dynamic(
-      () => import('../../components/code-block'),
-      { loading: () => <code>{children}</code>, ssr: false }
-    )
-
-    return inline ? (
-      <code className="bg-gray-200 dark:bg-gray-700 rounded-sm px-1">{children}</code>
+    return match ? (
+      <CodeBlock
+        language={match.length > 0 ? match[1] : undefined}
+        children={children as string}
+        style={style as { [key: string]: React.CSSProperties } | undefined}
+        {...props}
+      />
     ) : (
-      <DynamicCodeBlock language={match && match.length > 0 ? match[1] : ''} children={children} {...props} />
+      <code className="bg-gray-200 dark:bg-gray-700 rounded-sm px-1">{children}</code>
     )
+  },
+  style({ children }) {
+    return <StyleClient children={children as string || ''} />
   }
 }
 
 // 自定义 unified 插件，将 table 放在 <div class='overflow-x-auto' /> 标签内，防止在移动端由于表格内容过多破坏整体布局
-function fixTable() {
+function rehypeFixTable() {
   return (tree: any) => {
     for (let i = 0; i < tree.children.length; i++) {
       const node = tree.children[i];
@@ -43,11 +43,11 @@ function fixTable() {
   }
 }
 
-export default function ReactMarkdownContent({ children }: { children: string }) {
+export default async function ReactMarkdownContent({ children }: { children: string }) {
   return (
     <ReactMarkdown
-      remarkPlugins={[gfm]}
-      rehypePlugins={[rehypeSlug, fixTable]}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[rehypeMathjax, rehypeSlug, rehypeFixTable]}
       components={components}
       children={children}
       skipHtml

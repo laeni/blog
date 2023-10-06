@@ -4,6 +4,18 @@
 
 @import 'antd/dist/reset.css';
 
+/* 重写 @tailwind base; 中的样式 (目前，如果不重置 svg 则会导致公式换行问题) */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: initial;
+}
+
 .icon {
   width: 1em;
   height: 1em;

@@ -10,7 +10,6 @@ import { rootTitle } from '../layout'
 import Widget from '../widget'
 import ReactMarkdownContent from './content'
 import styles from "./page.module.scss"
-import 'supports-color';
 
 /// 文章
 
