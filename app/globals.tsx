@@ -20,7 +20,7 @@ export default function Globals({
       {children}
       <DyNProgress />
       {/* "回到顶部"按钮 */}
-      <FloatButton.BackTop className='bottom-28 sm:bottom-[50px]' />
+      <div><FloatButton.BackTop className='bottom-28 sm:bottom-[50px]' /></div>
       <style>{`@media screen and (max-width: 640px) {.ant-back-top {right: 20px;}}`}</style>
     </StyleProvider>
   )
