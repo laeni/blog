@@ -5,18 +5,20 @@ import Link from "next/link";
 
 // 友链
 const links = [
-  { name: 'React', url: 'https://zh-hans.reactjs.org/' },
-  { name: 'Vue', url: 'https://vuejs.org/' },
+  { name: 'React', url: 'https://react.dev' },
+  { name: 'Vue', url: 'https://vuejs.org' },
   // {name: 'Angular', url: 'https://angular.cn/'},
-  { name: 'Next.js', url: 'https://nextjs.org/' },
-  { name: 'UmiJS', url: 'https://umijs.org/zh-CN' },
-  { name: 'Nuxt.js', url: 'https://nuxtjs.org/' },
-  { name: 'Tailwind CSS', url: 'https://tailwindcss.com/' },
-  { name: 'Vercel', url: 'https://vercel.com/' },
-  { name: 'Ant Design', url: 'https://ant.design/' },
-  { name: '阿里巴巴矢量图标库', url: 'https://www.iconfont.cn/' },
-  { name: '叶子个人博客', url: 'https://www.yezismile.com/' },
-  { name: '在线工具', url: 'https://util.laeni.cn/' },
+  { name: 'Next.js', url: 'https://nextjs.org' },
+  { name: 'UmiJS', url: 'https://umijs.org' },
+  { name: 'Nuxt.js', url: 'https://nuxt.com' },
+  { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
+  { name: 'CSS Loaders', url: 'https://css-loaders.com' },
+  { name: 'Ant Design', url: 'https://ant.design' },
+  { name: '中文文案排版指北', url: 'https://github.com/mzlogin/chinese-copywriting-guidelines' },
+  { name: 'GFM 规范', url: 'https://github.github.com/gfm/' },
+  { name: '阿里巴巴矢量图标库', url: 'https://www.iconfont.cn' },
+  { name: '叶子个人博客', url: 'https://www.yezismile.com' },
+  { name: '在线工具', url: 'https://util.laeni.cn' },
 ];
 
 // 获取最新文章标题（最新动态）

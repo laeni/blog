@@ -14,11 +14,11 @@ const carouselData = [
     blank: false,
     url: '/note/web/umijs-plugin-dva'
   },
-  {
-    img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/forward-proxy.jpg',
-    blank: false,
-    url: '/note/net/forward-proxy'
-  },
+  // {
+  //   img: 'https://pictures-1252266447.cos.ap-chengdu.myqcloud.com/blog/index/forward-proxy.jpg',
+  //   blank: false,
+  //   url: '/note/net/forward-proxy'
+  // },
 ]
 
 // 获取所有文章数据
